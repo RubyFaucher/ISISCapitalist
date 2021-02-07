@@ -1,0 +1,21 @@
+<div class="header">
+  <div><span id="worldname">{{world.name}} </span> </div>
+  <div> <img [attr.src]="server+world.logo" /> </div>
+  <div><span id="worldmoney">{{world.money}} </span>£ </div>
+  <div> multiplicateur </div>
+  <div> Id du joueur </div>
+</div>
+
+<div class="main">
+  <div>liste des boutons de menu </div>
+  <div class="product">
+    <div>
+      <app-product [prod]="world.products.product[0]" class="product col-md-6"></app-product>
+    </div>
+    <div>secondproduit </div>
+    <div>troisièmeproduit </div>
+    <div>quatrièmeproduit </div>
+    <div>cinquième produit </div>
+    <div>sixième produit </div>
+  </div>
+</div>
