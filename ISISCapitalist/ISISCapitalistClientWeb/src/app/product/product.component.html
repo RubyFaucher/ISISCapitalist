@@ -1,1 +1,8 @@
-<p>{{product.name}}</p>
+
+<div >
+    <img (click)="startFabrication()" class="logo_produit" [attr.src]="server+product.logo" /> 
+    <mat-progress-bar class="progressbar" [value]="progressbarvalue"></mat-progress-bar>
+    <p><span id="productname">{{product.name}} </span>
+    <br>
+    <span id="productcost">{{product.cout}}£ </span></p>
+</div>

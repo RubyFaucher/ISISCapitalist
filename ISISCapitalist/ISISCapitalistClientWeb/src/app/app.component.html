@@ -1,9 +1,20 @@
 <div class="header">
-  <div><span id="worldname">{{world.name}} </span> </div>
-  <div> <img [attr.src]="server+world.logo" /> </div>
-  <div><span id="worldmoney">{{world.money}} </span>£ </div>
-  <div> multiplicateur </div>
-  <div> Id du joueur </div>
+
+  <mat-toolbar color="primary">
+    <div><span id="worldname">{{world.name}} </span> </div>
+    <div> <img class="logo_monde" [attr.src]="server+world.logo" /> </div>
+    <span class="example-spacer"></span>
+
+    <div>
+      <span id="worldmoney" [innerHTML]="world.money | bigvalue">{{world.money}} </span>£
+    </div>
+    <span class="example-spacer"></span>
+    <div> multiplicateur </div>
+    <span class="example-spacer"></span>
+    <div> Id du joueur </div>
+  </mat-toolbar>
+
+
 </div>
 
 <div class="main">
@@ -12,10 +23,10 @@
     <div>
       <app-product [prod]="world.products.product[0]" class="product col-md-6"></app-product>
     </div>
-    <div>secondproduit </div>
-    <div>troisièmeproduit </div>
-    <div>quatrièmeproduit </div>
-    <div>cinquième produit </div>
-    <div>sixième produit </div>
+    <div>
+      <app-product [prod]="world.products.product[1]" class="product col-md-6"></app-product>
+    </div>
+
+
   </div>
 </div>

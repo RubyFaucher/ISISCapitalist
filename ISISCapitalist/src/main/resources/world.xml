@@ -10,7 +10,7 @@ and open the template in the editor.
     xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
     xsi:noNamespaceSchemaLocation='file:/Users/ruby/ISISCapitalist/src/main/java/worldSchema.xsd'>
     <name>Monde</name>
-    <logo>icones/logomonde.png</logo>
+    <logo>icones/hogwarts.png</logo>
     <money>0</money>
     <score>0</score>
     <totalangels>0</totalangels>
@@ -20,28 +20,28 @@ and open the template in the editor.
     <products>
         <product>
             <id>1</id>
-            <name>produit1</name>
-            <logo></logo>
+            <name>Bière au beurre</name>
+            <logo>icones/butterbeer.png</logo>
             <cout>1</cout>
             <croissance>2</croissance>
             <revenu>3</revenu>
-            <vitesse>2</vitesse>
+            <vitesse>20000</vitesse>
             <quantite>2</quantite>
-            <timeleft>3</timeleft>
+            <timeleft>1000</timeleft>
             <managerUnlocked>0</managerUnlocked>
             <palliers>
             </palliers>
         </product>
         <product>
             <id>2</id>
-            <name>produit2</name>
-            <logo>logo2</logo>
+            <name>Retourneur de temps</name>
+            <logo>icones/timeturner.png</logo>
             <cout>4</cout>
             <croissance>2</croissance>
             <revenu>3</revenu>
-            <vitesse>2</vitesse>
+            <vitesse>40000</vitesse>
             <quantite>0</quantite>
-            <timeleft>4</timeleft>
+            <timeleft>1000</timeleft>
             <managerUnlocked>0</managerUnlocked>
             <palliers>
             </palliers>

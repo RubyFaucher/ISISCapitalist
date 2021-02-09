@@ -1,7 +1,4 @@
-.header{
-    display:grid;
-    grid-template-columns:20%20%20%20%20%;
-}
+
 .main{
     display:grid;
     grid-template-columns:20%80%;
@@ -10,3 +7,10 @@
     display:grid;
     grid-template-columns:1fr1fr;
 }
+.logo_monde{
+    width: 30px;
+    height: 30px;
+}
+.example-spacer {
+    flex: 1 1 auto;
+  }

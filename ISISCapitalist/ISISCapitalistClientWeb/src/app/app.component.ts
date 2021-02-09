@@ -18,6 +18,8 @@ export class AppComponent {
      this.server = service.getServer(); 
      service.getWorld().then(
        world => { 
-         this.world = world; }); 
+         this.world = world; 
+         console.log(JSON.stringify(world))
+        }); 
         }
 }
