@@ -4,5 +4,7 @@
     <mat-progress-bar class="progressbar" [value]="progressbarvalue"></mat-progress-bar>
     <p><span id="productname">{{product.name}} </span>
     <br>
-    <span id="productcost">{{product.cout}}£ </span></p>
+    <span id="productcost">{{product.cout}}£ </span>
+    <span id="productcost">{{totalCost}}£ </span>
+    <span id="nbmaxcanbuy" [innerHtml]="calcMaxCanBuy()"></span></p>
 </div>

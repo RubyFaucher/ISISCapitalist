@@ -21,12 +21,16 @@
   <div>liste des boutons de menu </div>
   <div class="product">
     <div>
-      <app-product [prod]="world.products.product[0]" class="product col-md-6"></app-product>
+      <app-product (notifyProduction)="onProductionDone($event)" [qtmulti]="qtmulti" [money]="world.money" [prod]="world.products.product[0]"
+        class="product col-md-6"></app-product>
     </div>
     <div>
-      <app-product [prod]="world.products.product[1]" class="product col-md-6"></app-product>
+      <app-product (notifyProduction)="onProductionDone($event)" [qtmulti]="qtmulti" [money]="world.money" [prod]="world.products.product[1]"
+        class="product col-md-6"></app-product>
     </div>
+  </div>
 
-
+  <div class="button-commutateur">
+    <button mat-raised-button (click)="changeCommutateur()" color="primary">{{qtmulti}}</button>
   </div>
 </div>
