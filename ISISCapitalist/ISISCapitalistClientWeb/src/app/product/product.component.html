@@ -5,6 +5,9 @@
     <p><span id="productname">{{product.name}} </span>
     <br>
     <span id="productcost">{{product.cout}}£ </span>
-    <span id="productcost">{{totalCost}}£ </span>
-    <span id="nbmaxcanbuy" [innerHtml]="calcMaxCanBuy()"></span></p>
+    <div class="button-buy">
+        <button id="productcost" mat-raised-button color="primary">Acheter {{qtMultiDisplay()}} produits: {{numberTransformer.transform(totalCost)}} £</button>
+    </div>
+    
+    <span id="nbmaxcanbuy" [innerHtml]=""></span>
 </div>
