@@ -26,8 +26,8 @@ and open the template in the editor.
             <croissance>1.02</croissance>
             <revenu>3</revenu>
             <vitesse>20000</vitesse>
-            <quantite>2</quantite>
-            <timeleft>1000</timeleft>
+            <quantite>0</quantite>
+            <timeleft>0</timeleft>
             <managerUnlocked>0</managerUnlocked>
             <palliers>
             </palliers>
@@ -41,7 +41,7 @@ and open the template in the editor.
             <revenu>5</revenu>
             <vitesse>40000</vitesse>
             <quantite>0</quantite>
-            <timeleft>1000</timeleft>
+            <timeleft>0</timeleft>
             <managerUnlocked>0</managerUnlocked>
             <palliers>
             </palliers>
@@ -81,6 +81,24 @@ and open the template in the editor.
     <angelupgrades>
     </angelupgrades>
     <managers>
+    <pallier>
+      <name>Harry Potter</name>
+      <logo>icones/harry-potter.png</logo>
+      <seuil>3</seuil>
+      <idcible>1</idcible>
+      <ratio>3.1415926535</ratio>
+      <typeratio>vitesse</typeratio>
+      <unlocked>false</unlocked>
+    </pallier>
+    <pallier>
+      <name>Dumbledore</name>
+      <logo>icones/dumbledore.png</logo>
+      <seuil>60</seuil>
+      <idcible>2</idcible>
+      <ratio>3.1415926535</ratio>
+      <typeratio>vitesse</typeratio>
+      <unlocked>false</unlocked>
+    </pallier>
     </managers>
 
 </world>

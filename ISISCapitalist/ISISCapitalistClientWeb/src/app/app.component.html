@@ -18,19 +18,52 @@
 </div>
 
 <div class="main">
-  <div>liste des boutons de menu </div>
+  <div>
+    <button (click)="changeShowManagers()" class="managersButton" mat-raised-button color="accent">Managers</button>
+  </div>
   <div class="product">
     <div>
-      <app-product (notifyProduction)="onProductionDone($event)" [qtmulti]="qtmulti" [money]="world.money" [prod]="world.products.product[0]"
-        class="product col-md-6"></app-product>
+      <app-product *ngIf="world.products.product.length > 0" (notifyAchat)="onBuy($event)"
+        (notifyProduction)="onProductionDone($event)" [qtmulti]="qtmulti" [money]="world.money"
+        [prod]="world.products.product[0]" class="product col-md-6"></app-product>
     </div>
     <div>
-      <app-product (notifyProduction)="onProductionDone($event)" [qtmulti]="qtmulti" [money]="world.money" [prod]="world.products.product[1]"
-        class="product col-md-6"></app-product>
+      <app-product *ngIf="world.products.product.length > 0" (notifyAchat)="onBuy($event)"
+        (notifyProduction)="onProductionDone($event)" [qtmulti]="qtmulti" [money]="world.money"
+        [prod]="world.products.product[1]" class="product col-md-6"></app-product>
     </div>
   </div>
 
   <div class="button-commutateur">
     <button mat-raised-button (click)="changeCommutateur()" color="primary">{{qtmulti}}</button>
+  </div>
+</div>
+
+
+
+
+<div *ngIf="showManagers" class="modal">
+  <div>
+    <h1 class="title">Managers make you feel better !</h1>
+  </div>
+  <div>
+    <div *ngFor="let manager of world.managers.pallier">
+      <div *ngIf="!manager.unlocked" class="managerslayout">
+        <div>
+          <div class="logo"><img class="round" [attr.src]="server+manager.logo" /> </div>
+        </div>
+        <div>
+
+          <div class="managername"> {{ manager.name}} </div>
+          <div class="managercible"> {{ world.products.product[manager.idcible-1].name }} </div>
+          <div class="managercost"> {{ manager.seuil}} </div>
+        </div>
+        <div>
+          <button mat-raised-button class="hirebutton" color="accent" (click)="hireManager(manager)"
+            [disabled]="!(world.money >= manager.seuil)">Hire !</button>
+        </div>
+      </div>
+    </div>
+    <button class="closebutton" mat-raised- button color="primary" (click)="showManagers = !showManagers">Close</button>
   </div>
 </div>

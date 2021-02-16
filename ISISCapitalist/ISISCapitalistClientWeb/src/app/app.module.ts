@@ -9,6 +9,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { BigvaluePipe } from './bigvalue.pipe';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import {MatButtonModule} from '@angular/material/button'; 
+import {MatChipsModule} from '@angular/material/chips'; 
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import {MatButtonModule} from '@angular/material/button';
     HttpClientModule,
     MatToolbarModule,
     MatProgressBarModule,
-    MatButtonModule
+    MatButtonModule,
+    MatChipsModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

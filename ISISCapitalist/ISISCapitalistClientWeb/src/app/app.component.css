@@ -1,8 +1,9 @@
 
 .main{
     display:grid;
-    grid-template-columns:20%50%30%;
+    grid-template-columns:30%50%20%;
     margin-top: 20px;
+    margin-left: 20px;
 }
 .product{
     display:grid;
@@ -12,6 +13,32 @@
     width: 30px;
     height: 30px;
 }
+.round{
+    width: 100px;
+    height: 100px;
+}
+
 .example-spacer {
     flex: 1 1 auto;
   }
+
+  .modal {
+    position: fixed; /* reste en place */
+    z-index: 2; /* au dessus du reste */
+    width: 60%; /* largeur */
+    height: 70%; /* hauteur */
+    overflow: auto; /* barre de scroll si besoin */ background-color: white; /* opaque */
+    border: solid;
+    top:20%; /* a 10% du haut */ 
+    left:20%; /* a 20% de la gauche */
+    }
+
+      
+
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    }

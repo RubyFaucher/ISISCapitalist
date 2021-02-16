@@ -20,13 +20,12 @@ export class ProductComponent implements OnInit {
   totalCost:number;
   numberTransformer:BigvaluePipe;
   maxCanBuy:number;
-
+  canBuy:boolean;
   
 
   @Input()
   set qtmulti(value: string) {
-    this._qtmulti= value;
-    
+    this._qtmulti= value; 
     if(this._qtmulti&& this.product) this.calcQteMulti();
     
   }
@@ -44,14 +43,18 @@ export class ProductComponent implements OnInit {
   @Output() 
   notifyProduction: EventEmitter<Product> = new EventEmitter<Product>();
 
+  @Output() 
+  notifyAchat: EventEmitter<Number> = new EventEmitter<Number>();
+
   constructor(private service: RestserviceService) {
     this.server = service.getServer();
     this.numberTransformer = new BigvaluePipe();
   }
   startFabrication() {
-    this.product.timeleft = this.product.vitesse;
-
-    this.lastupdate = Date.now();
+    if (this.progressbarvalue == 0){
+      this.product.timeleft = this.product.vitesse;
+      this.lastupdate = Date.now();
+    }
 
   }
 
@@ -63,12 +66,19 @@ export class ProductComponent implements OnInit {
         if (this.product.timeleft < 0) {
           this.product.timeleft = 0;
         }
-        this.progressbarvalue = 0;
         this.notifyProduction.emit(this.product);
+        this.progressbarvalue = 0;
+        if(this.product.managerUnlocked){
+          this.startFabrication();
+        }
+        
       }
       else if (this.product.timeleft > 0) {
-        this.progressbarvalue = ((this.product.vitesse - this.product.timeleft) / this.product.vitesse) * 100
+        this.progressbarvalue = ((this.product.vitesse - this.product.timeleft) / this.product.vitesse) * 100;
       }
+    }
+    else if(this.product.managerUnlocked){
+      this.startFabrication();
     }
   }
 
@@ -94,12 +104,38 @@ export class ProductComponent implements OnInit {
       this.totalCost=x*((1-(c**n))/(1-c));
     }
 
+      this.canBuy = this.totalCost <= this._money && this._money != 0;
+
   }
   calcMaxCanBuy(){
     let x=this.product.cout;
     let c=this.product.croissance;
     this.maxCanBuy=Math.floor((Math.log((-(this._money*(1-c))/x)+1))/(Math.log(c)));
     return this.maxCanBuy;
+  }
+  achatProduit(){
+    if(this._qtmulti=="x1" && this.calcMaxCanBuy()>=1){
+      this.product.quantite+=1;
+      this.notifyAchat.emit(this.totalCost);
+    }
+    else if(this._qtmulti=="x10" && this.calcMaxCanBuy()>=10){
+      this.product.quantite+=10;
+      this.notifyAchat.emit(this.totalCost);
+    }
+    else if(this._qtmulti=="x100" && this.calcMaxCanBuy()>=100){
+      this.product.quantite+=100;
+      this.notifyAchat.emit(this.totalCost);
+    }
+    else if(this._qtmulti=="xMax"){
+      this.product.quantite+=this.calcMaxCanBuy();
+      this.notifyAchat.emit(this.totalCost);
+      
+    }
+    else{
+      alert("Vous n'avez pas assez d'argent");
+    }
+    
+    
   }
 
   qtMultiDisplay(){
