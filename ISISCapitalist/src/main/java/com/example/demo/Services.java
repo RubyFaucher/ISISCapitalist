@@ -25,14 +25,17 @@ public class Services {
     World monde = new World();
     //String path ="/Users/ruby/ISISCapitalist/src/main/resources";  
     
-    public World readWorldFromXml(){
+    public World readWorldFromXml(String username){
        
         JAXBContext jaxbContext;
 
         try {
             jaxbContext = JAXBContext.newInstance(World.class);
             Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-            InputStream input=getClass().getClassLoader().getResourceAsStream("world.xml");
+            InputStream input=getClass().getClassLoader().getResourceAsStream(username+"-world.xml");
+            if(input==null){
+                input=getClass().getClassLoader().getResourceAsStream("world.xml");
+            }
             monde = (World) jaxbUnmarshaller.unmarshal(input);
         } catch (JAXBException ex) {
             System.out.println("Erreur lecture du fichier:"+ex.getMessage());
@@ -43,13 +46,13 @@ public class Services {
     }
 
     
-    public void saveWorldToXml(World world){
+    public void saveWorldToXml(World world, String username){
         JAXBContext jaxbContext;
 
         try {
             jaxbContext = JAXBContext.newInstance(World.class);
             Marshaller march = jaxbContext.createMarshaller();
-            OutputStream output = new FileOutputStream("world.xml");
+            OutputStream output = new FileOutputStream(username+"-world.xml");
             march.marshal(monde, output);
         } catch (Exception ex) {
             System.out.println("Erreur écriture du fichier:"+ex.getMessage());
@@ -58,8 +61,8 @@ public class Services {
     }
     
     
-    public World getWorld(){
-        return(this.readWorldFromXml());
+    public World getWorld(String username){
+        return(this.readWorldFromXml(username));
     }
 }
     

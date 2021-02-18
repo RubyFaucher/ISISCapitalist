@@ -11,7 +11,7 @@
     <span class="example-spacer"></span>
     <div> multiplicateur </div>
     <span class="example-spacer"></span>
-    <div> Id du joueur </div>
+    <div><input type="text" [(ngModel)]="username" (change)="onUsernameChanged()"/> </div>
   </mat-toolbar>
 
 
@@ -19,7 +19,7 @@
 
 <div class="main">
   <div>
-    <button (click)="changeShowManagers()" class="managersButton" mat-raised-button color="accent">Managers</button>
+    <button (click)="changeShowManagers()" [matBadge]="badgeManagers" [matBadgeHidden]="badgeManagers==0" class="managersButton" mat-raised-button color="accent">Managers</button>
   </div>
   <div class="product">
     <div>
