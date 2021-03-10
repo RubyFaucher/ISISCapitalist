@@ -20,6 +20,7 @@ export class ProductComponent implements OnInit {
   numberTransformer: BigvaluePipe;
   maxCanBuy: number;
   canBuy: boolean;
+  progressbar: any;
 
   @Input()
   set qtmulti(value: string) {
@@ -35,6 +36,13 @@ export class ProductComponent implements OnInit {
   @Input()
   set prod(value: Product) {
     this.product = value;
+    if (this.product && this.product.timeleft > 0) {
+      this.lastupdate = Date.now();
+      let progress =
+        (this.product.vitesse - this.product.timeleft) / this.product.vitesse;
+      this.progressbar.set(progress);
+      this.progressbar.animate(1, { duration: this.product.timeleft });
+    }
     this.totalCost = this.product.cout;
   }
   @Output()
@@ -48,6 +56,13 @@ export class ProductComponent implements OnInit {
     this.numberTransformer = new BigvaluePipe();
   }
   startFabrication() {
+    if (this.progressbarvalue == 0) {
+      this.product.timeleft = this.product.vitesse;
+      this.lastupdate = Date.now();
+      //this.service.putProduct(this.product);
+    }
+  }
+  startManualFabrication() {
     if (this.progressbarvalue == 0) {
       this.product.timeleft = this.product.vitesse;
       this.lastupdate = Date.now();
@@ -85,6 +100,7 @@ export class ProductComponent implements OnInit {
       this.calcScore();
     }, 100);
     this.progressbarvalue = 0;
+    this.canBuy = this.totalCost <= this._money && this._money != 0;
   }
   calcQteMulti() {
     let x = this.product.cout;

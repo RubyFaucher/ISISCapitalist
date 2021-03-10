@@ -1,44 +1,94 @@
-
-.main{
-    display:grid;
-    grid-template-columns:30%50%20%;
-    margin-top: 20px;
-    margin-left: 20px;
+.main {
+  display: grid;
+  grid-template-columns: 30%50%20%;
+  margin-top: 20px;
+  margin-left: 20px;
 }
-.product{
-    display:grid;
-    grid-template-columns:1fr1fr;
+.product {
+  display: grid;
+  grid-template-columns: 1fr1fr;
 }
-.logo_monde{
-    width: 30px;
-    height: 30px;
+.logo_monde {
+  width: 50px;
+  height: 50px;
 }
-.round{
-    width: 100px;
-    height: 100px;
+.round {
+  width: 100px;
+  height: 100px;
 }
 
 .example-spacer {
-    flex: 1 1 auto;
-  }
+  flex: 1 1 auto;
+}
 
-  .modal {
-    position: fixed; /* reste en place */
-    z-index: 2; /* au dessus du reste */
-    width: 60%; /* largeur */
-    height: 70%; /* hauteur */
-    overflow: auto; /* barre de scroll si besoin */ background-color: white; /* opaque */
-    border: solid;
-    top:20%; /* a 10% du haut */ 
-    left:20%; /* a 20% de la gauche */
-    }
-
-      
+.modal {
+  position: fixed; /* reste en place */
+  z-index: 2; /* au dessus du reste */
+  width: 60%; /* largeur */
+  height: 70%; /* hauteur */
+  overflow: auto; /* barre de scroll si besoin */
+  background-color: #e5e5e5; /* opaque */
+  border: 3px solid #d3a625;
+  top: 20%; /* a 10% du haut */
+  left: 20%; /* a 20% de la gauche */
+}
 
 .modal-content {
-    background-color: #fefefe;
-    margin: auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-    }
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+input[type="text"],
+textarea {
+  background-color: #ffffff;
+  font-size: large;
+  text-align: center;
+  border: 3px solid #d3a625;
+}
+button:disabled {
+  background-color: #c0c0c0 !important;
+  color: #ffffff !important;
+}
+.title {
+  text-align: center;
+  color: #d3a625;
+}
+.pallier {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  padding: 5px;
+  background-color: #740001;
+  color: #f0f0f0;
+}
+.nomPrix {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-size: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.cadre {
+  display: flex;
+  flex-direction: row;
+  width: 35%;
+  border: 1px solid #000;
+  flex-shrink: 0;
+  margin: 40px;
+  background-color: white;
+}
+.logo {
+  height: 38%;
+  width: 38%;
+  object-fit: contain;
+  margin-top: 5px;
+}
+.button-center {
+  text-align: center;
+}
+.managersButton {
+  width: 100px !important;
+}

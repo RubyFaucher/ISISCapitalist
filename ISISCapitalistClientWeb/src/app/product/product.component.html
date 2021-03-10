@@ -1,20 +1,39 @@
 <div>
-    <div class="lesdeux">
-        <div class="lepremier"><img (click)="startFabrication()" class="logo_produit"
-                [attr.src]="server+product.logo" /> </div>
-        <div class="lesecond">
-            <mat-chip-list>
-                <mat-chip class="small-chip" color="accent" selected>{{product.quantite}}</mat-chip>
-            </mat-chip-list>
-        </div>
-        <mat-progress-bar class="progressbar" [value]="progressbarvalue"></mat-progress-bar> 
+  <div class="lesdeux">
+    <div class="lepremier">
+      <img
+        (click)="startManualFabrication()"
+        class="logo_produit"
+        [attr.src]="server + product.logo"
+      />
     </div>
-    
-    <p><span id="productname">{{product.name}} </span>
-        <br>
-        <span id="productcost">{{product.cout}}£ </span>
-    <div class="button-buy">
-        <button (click)="achatProduit()" id="productcost" mat-raised-button color="primary" [disabled]="!canBuy">Acheter {{qtMultiDisplay()}}
-            produits: {{numberTransformer.transform(totalCost)}} £</button>
+    <div class="lesecond">
+      <mat-chip-list>
+        <mat-chip class="small-chip" color="accent" selected>{{
+          product.quantite
+        }}</mat-chip>
+      </mat-chip-list>
     </div>
+    <mat-progress-bar
+      class="progressbar"
+      [value]="progressbarvalue"
+    ></mat-progress-bar>
+  </div>
+
+  <p>
+    <span id="productname">{{ product.name }} </span> <br />
+  </p>
+
+  <div class="button-buy">
+    <button
+      (click)="achatProduit()"
+      id="productcost"
+      mat-raised-button
+      color="primary"
+      [disabled]="!canBuy"
+    >
+      Acheter {{ qtMultiDisplay() }} produits:
+      {{ numberTransformer.transform(totalCost) }} £
+    </button>
+  </div>
 </div>

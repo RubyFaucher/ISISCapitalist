@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -36,8 +37,6 @@ public class Services {
             Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
             String fileName = username + "-world.xml";
             File worldFile = new File(fileName);
-            // InputStream input =
-            // getClass().getClassLoader().getResourceAsStream(fileName);
             if (!worldFile.exists()) {
                 InputStream input = getClass().getClassLoader().getResourceAsStream("world.xml");
                 world = (World) jaxbUnmarshaller.unmarshal(input);
@@ -45,23 +44,22 @@ public class Services {
                 world = (World) jaxbUnmarshaller.unmarshal(worldFile);
             }
 
-            System.out.println("reading score : " + world.getScore());
         } catch (JAXBException ex) {
             System.out.println("Erreur lecture du fichier:" + ex.getMessage());
             ex.printStackTrace();
         }
-
         return world;
     }
 
     public void saveWorldToXml(String username, World world) {
         JAXBContext jaxbContext;
+
         try {
+
             jaxbContext = JAXBContext.newInstance(World.class);
             Marshaller march = jaxbContext.createMarshaller();
             String fileName = username + "-world.xml";
             OutputStream output = new FileOutputStream(fileName);
-            System.out.println("score while saving: " + world.getScore());
             march.marshal(world, output);
         } catch (Exception ex) {
             System.out.println("Erreur écriture du fichier:" + ex.getMessage());
@@ -78,7 +76,6 @@ public class Services {
 
     public Boolean updateProduct(String username, ProductType newproduct) {
         World world = getWorld(username);
-        System.out.println("Score before updateProduct : " + world.getScore());
         double money = world.getMoney();
         ProductType product = findProductById(world, newproduct.getId());
         if (product == null) {
@@ -87,21 +84,22 @@ public class Services {
         int qteprod = product.getQuantite();
         int qtchange = newproduct.getQuantite() - qteprod;
         if (qtchange > 0) {
-            world.setMoney(money - (newproduct.getCout()) * (newproduct.getQuantite()));
+            // this.totalCost = x * ((1 - c ** n) / (1 - c));
+            System.out.println("updating money");
+            world.setMoney(money - (newproduct.getCout()
+                    * ((1 - Math.pow(newproduct.getCroissance(), qtchange)) / (1 - newproduct.getCroissance()))));
+            world.setScore(money - (newproduct.getCout()
+                    * ((1 - Math.pow(newproduct.getCroissance(), qtchange)) / (1 - newproduct.getCroissance()))));
+            // world.setMoney(money - (newproduct.getCout() * newproduct.getQuantite()));
+            System.out.println("new money " + world.getMoney());
             product.setQuantite(qteprod + qtchange);
-            // qteprod -= newproduct.getQuantite();
-            // soustraire de l'argent du joueur le cout de la quantité // achetée et mettre
-            // à jour la quantité de product
         } else {
 
             product.setTimeleft(product.getVitesse());
 
-            // initialiser product.timeleft à product.vitesse // pour lancer la production
         }
 
-        // sauvegarder les changements du monde
         // this.updateScore(world);
-        System.out.println("Score after updateScore de updateProduct : " + world.getScore());
         saveWorldToXml(username, world);
         return true;
     }
@@ -109,7 +107,6 @@ public class Services {
     public Boolean updateManager(String username, PallierType newmanager) {
         World world = getWorld(username);
         PallierType manager = findManagerByName(world, newmanager.getName());
-
         if (manager == null) {
             return false;
         }
@@ -120,11 +117,12 @@ public class Services {
             return false;
         }
         // débloquer le manager de ce produit
-        manager.isUnlocked();
+        manager.setUnlocked(true);
+        product.setManagerUnlocked(true);
         // soustraire de l'argent du joueur le cout du manager
         double money = world.getMoney();
         world.setMoney(money - manager.getSeuil());
-        this.updateScore(world);
+        world.setScore(money - manager.getSeuil());
         // sauvegarder les changements au monde
         saveWorldToXml(username, world);
         return true;
@@ -134,29 +132,28 @@ public class Services {
         long tempsecoule = System.currentTimeMillis() - world.getLastupdate();
         for (ProductType product : world.getProducts().getProduct()) {
             if (!product.isManagerUnlocked()) {
-                System.out.println("timeleft: " + product.getTimeleft());
-                System.out.println("temps: " + tempsecoule);
                 if (product.getTimeleft() != 0 && product.getTimeleft() < tempsecoule) {
                     world.setScore(world.getScore() + product.getRevenu());
                     world.setMoney(world.getMoney() + product.getRevenu());
+                    product.setTimeleft(0);
                 } else {
                     if ((product.getTimeleft() - tempsecoule) < 0) {
                         product.setTimeleft(0);
                     } else {
+
                         product.setTimeleft(product.getTimeleft() - tempsecoule);
                     }
 
                 }
-
-                /*
-                 * else if (product.getTimeleft() > tempsecoule) {
-                 * product.setTimeleft(product.getTimeleft() - tempsecoule); }
-                 */
             } else {
                 int qteproduite = (int) Math.floor(tempsecoule / product.getVitesse());
                 world.setScore(world.getScore() + product.getRevenu() * qteproduite);
                 world.setMoney(world.getMoney() + product.getRevenu() * qteproduite);
-                product.setTimeleft(product.getTimeleft() - tempsecoule);
+                if ((product.getTimeleft() - tempsecoule) < 0) {
+                    product.setTimeleft(0);
+                } else {
+                    product.setTimeleft(product.getTimeleft() - tempsecoule);
+                }
             }
         }
         world.setLastupdate(System.currentTimeMillis());
@@ -166,7 +163,7 @@ public class Services {
     private PallierType findManagerByName(World world, String name) {
         PallierType manager = null;
         for (PallierType pallier : world.getManagers().getPallier()) {
-            if (pallier.getName() == name) {
+            if (pallier.getName().equals(name)) {
                 manager = pallier;
             }
 

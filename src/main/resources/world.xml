@@ -6,9 +6,7 @@ and open the template in the editor.
 -->
 
 
-<world
-    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
-    xsi:noNamespaceSchemaLocation='file:/Users/ruby/ISISCapitalist/src/main/java/worldSchema.xsd'>
+<world xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:noNamespaceSchemaLocation='file:/Users/ruby/ISISCapitalist/src/main/java/worldSchema.xsd'>
     <name>Monde</name>
     <logo>icones/hogwarts.png</logo>
     <money>0</money>
@@ -51,26 +49,17 @@ and open the template in the editor.
         <pallier>
             <name>pallier1</name>
             <logo>logopal1</logo>
-            <seuil>2</seuil>
-            <idcible></idcible>
+            <seuil>20</seuil>
+            <idcible>1</idcible>
             <ratio></ratio>
             <typeratio></typeratio>
             <unlocked></unlocked>
         </pallier>
         <pallier>
-            <name></name>
-            <logo></logo>
-            <seuil></seuil>
-            <idcible></idcible>
-            <ratio></ratio>
-            <typeratio></typeratio>
-            <unlocked></unlocked>
-        </pallier>
-        <pallier>
-            <name></name>
-            <logo></logo>
-            <seuil></seuil>
-            <idcible></idcible>
+            <name>pallier2</name>
+            <logo>logopallier2</logo>
+            <seuil>50</seuil>
+            <idcible>2</idcible>
             <ratio></ratio>
             <typeratio></typeratio>
             <unlocked></unlocked>
@@ -81,24 +70,24 @@ and open the template in the editor.
     <angelupgrades>
     </angelupgrades>
     <managers>
-    <pallier>
-      <name>Harry Potter</name>
-      <logo>icones/harry-potter.png</logo>
-      <seuil>3</seuil>
-      <idcible>1</idcible>
-      <ratio>3.1415926535</ratio>
-      <typeratio>vitesse</typeratio>
-      <unlocked>false</unlocked>
-    </pallier>
-    <pallier>
-      <name>Dumbledore</name>
-      <logo>icones/dumbledore.png</logo>
-      <seuil>60</seuil>
-      <idcible>2</idcible>
-      <ratio>3.1415926535</ratio>
-      <typeratio>vitesse</typeratio>
-      <unlocked>false</unlocked>
-    </pallier>
+        <pallier>
+            <name>Harry Potter</name>
+            <logo>icones/harry-potter.png</logo>
+            <seuil>3</seuil>
+            <idcible>1</idcible>
+            <ratio>3.1415926535</ratio>
+            <typeratio>vitesse</typeratio>
+            <unlocked>false</unlocked>
+        </pallier>
+        <pallier>
+            <name>Dumbledore</name>
+            <logo>icones/dumbledore.png</logo>
+            <seuil>60</seuil>
+            <idcible>2</idcible>
+            <ratio>3.1415926535</ratio>
+            <typeratio>vitesse</typeratio>
+            <unlocked>false</unlocked>
+        </pallier>
     </managers>
 
 </world>

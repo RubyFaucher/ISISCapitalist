@@ -44,8 +44,8 @@ public class Webservice {
     @Path("product")
     public Response updateProduct(@Context HttpServletRequest request, @RequestBody ProductType product) {
         String username = request.getHeader("X-user");
-        System.out.print("Updating " + product.getName());
-        System.out.println(" With a revenue of " + product.getRevenu());
+        // System.out.print("Updating " + product.getName());
+        // System.out.println(" With a revenue of " + product.getRevenu());
         return Response.ok(services.updateProduct(username, product)).build();
     }
 
@@ -54,10 +54,7 @@ public class Webservice {
     public Response updateManager(@Context HttpServletRequest request, @RequestBody PallierType pallier) {
         String username = request.getHeader("X-user");
         System.out.println("Updating " + pallier.getName());
-        if (services.updateManager(username, pallier)) {
-            return Response.ok().build();
-        } else {
-            return Response.status(400).build();
-        }
+        return Response.ok(services.updateManager(username, pallier)).build();
+
     }
 }
