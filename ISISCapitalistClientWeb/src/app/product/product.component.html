@@ -1,10 +1,6 @@
-<div class="lesdeux">
+<div class="lesdeux" (click)="startManualFabrication()">
   <div class="lepremier">
-    <img
-      (click)="startManualFabrication()"
-      class="logo_produit"
-      [attr.src]="server + product.logo"
-    />
+    <img class="logo_produit" [attr.src]="server + product.logo" />
   </div>
   <div class="lesecond">
     <mat-chip-list>

@@ -48,6 +48,13 @@ export class RestserviceService {
       })
       .toPromise();
   }
+  putUnlock(unlock: Pallier): Promise<any> {
+    return this.http
+      .put(this.server + "adventureisis/generic/unlock", unlock, {
+        headers: this.setHeaders(this.user),
+      })
+      .toPromise();
+  }
   putProduct(product: Product): Promise<any> {
     console.log("requesting putProduct from user" + this.user);
     return this.http

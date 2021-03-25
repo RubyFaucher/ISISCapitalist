@@ -44,8 +44,6 @@ public class Webservice {
     @Path("product")
     public Response updateProduct(@Context HttpServletRequest request, @RequestBody ProductType product) {
         String username = request.getHeader("X-user");
-        // System.out.print("Updating " + product.getName());
-        // System.out.println(" With a revenue of " + product.getRevenu());
         return Response.ok(services.updateProduct(username, product)).build();
     }
 
@@ -55,6 +53,15 @@ public class Webservice {
         String username = request.getHeader("X-user");
         System.out.println("Updating " + pallier.getName());
         return Response.ok(services.updateManager(username, pallier)).build();
+
+    }
+
+    @PUT
+    @Path("unlock")
+    public Response updateUnlock(@Context HttpServletRequest request, @RequestBody PallierType pallier) {
+        String username = request.getHeader("X-user");
+        System.out.println("Updating " + pallier.getName());
+        return Response.ok(services.updateUnlock(username, pallier)).build();
 
     }
 }

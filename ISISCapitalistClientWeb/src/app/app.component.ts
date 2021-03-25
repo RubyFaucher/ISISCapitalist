@@ -163,5 +163,6 @@ export class AppComponent {
     if (this.badgeUnlocks < 0) {
       this.badgeUnlocks = 0;
     }
+    this.service.putUnlock(unlock);
   }
 }
