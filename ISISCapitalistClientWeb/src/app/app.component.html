@@ -173,12 +173,7 @@
                     class="hirebutton"
                     color="accent"
                     (click)="getUnlock(allunlock)"
-                    [disabled]="
-                      !(
-                        world.products.product[allunlock.idcible - 1]
-                          .quantite >= allunlock.seuil
-                      )
-                    "
+                    [disabled]="!(this.countQuantity() >= allunlock.seuil)"
                   >
                     Get !
                   </button></span

@@ -1,6 +1,7 @@
 import { THIS_EXPR } from "@angular/compiler/src/output/output_ast";
-import { Component } from "@angular/core";
+import { Component, QueryList, ViewChildren } from "@angular/core";
 import { MatSnackBar } from "@angular/material/snack-bar";
+import { ProductComponent } from "./product/product.component";
 import { RestserviceService } from "./restservice.service";
 import { World, Product, Pallier } from "./world";
 
@@ -10,6 +11,7 @@ import { World, Product, Pallier } from "./world";
   styleUrls: ["./app.component.css"],
 })
 export class AppComponent {
+  @ViewChildren(ProductComponent) public produits: QueryList<ProductComponent>;
   title = "ISISCapitalistClientWeb";
   world: World = new World();
   server: string;
@@ -96,6 +98,13 @@ export class AppComponent {
     });
     this.badgeUnlocks = countUnlocks;
   }
+  countQuantity() {
+    let qte = 0;
+    this.world.products.product.forEach((product) => {
+      qte += product.quantite;
+    });
+    return qte;
+  }
   changeCommutateur() {
     switch (this.qtmulti) {
       case "x1":
@@ -137,22 +146,19 @@ export class AppComponent {
 
   getUnlock(unlock) {
     unlock.unlocked = true;
-    if (unlock.typeratio == "gain") {
-      if (unlock.idcible != 0) {
-        this.world.products.product[unlock.idcible - 1].revenu =
-          this.world.products.product[unlock.idcible - 1].revenu * unlock.ratio;
-      } else {
-        this.world.products.product.forEach((product) => {
-          product.revenu = product.revenu * unlock.ratio;
-        });
-      }
-    } else if (unlock.typeratio == "vitesse") {
-    }
     if (unlock.idcible != 0) {
-      this.world.products.product[unlock.idcible - 1].palliers += unlock;
+      this.produits.forEach((produit) => {
+        if (produit.product.id == unlock.idcible) {
+          produit.calcUpgrade(unlock);
+        }
+      });
+    } else {
+      this.produits.forEach((produit) => {
+        produit.calcUpgrade(unlock);
+      });
     }
 
-    this.popMessage("Bravo, vous venez de débloquer " + unlock.name);
+    this.popMessage(unlock.name + " " + unlock.typeratio + " x" + unlock.ratio);
     this.badgeUnlocks -= 1;
     if (this.badgeUnlocks < 0) {
       this.badgeUnlocks = 0;

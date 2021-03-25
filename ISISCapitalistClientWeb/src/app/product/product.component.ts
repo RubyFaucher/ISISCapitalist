@@ -1,7 +1,7 @@
 import { EventEmitter, Input, Output } from "@angular/core";
 import { Component, OnInit } from "@angular/core";
 import { RestserviceService } from "../restservice.service";
-import { Product } from "../world";
+import { Pallier, Product } from "../world";
 import { BigvaluePipe } from "../bigvalue.pipe";
 
 @Component({
@@ -117,6 +117,9 @@ export class ProductComponent implements OnInit {
     }
 
     this.canBuy = this.totalCost <= this._money && this._money != 0;
+    if (this.calcMaxCanBuy() == 0) {
+      this.canBuy = false;
+    }
   }
   calcMaxCanBuy() {
     let x = this.product.cout;
@@ -124,6 +127,7 @@ export class ProductComponent implements OnInit {
     this.maxCanBuy = Math.floor(
       Math.log(-(this._money * (1 - c)) / x + 1) / Math.log(c)
     );
+
     return this.maxCanBuy;
   }
   achatProduit() {
@@ -143,6 +147,20 @@ export class ProductComponent implements OnInit {
       alert("Vous n'avez pas assez d'argent");
     }
     this.service.putProduct(this.product);
+  }
+
+  calcUpgrade(unlock: Pallier) {
+    switch (unlock.typeratio) {
+      case "vitesse":
+        if (this.product.timeleft > 0) {
+          this.product.timeleft = this.product.timeleft / 2;
+        }
+        this.product.vitesse = this.product.vitesse / unlock.ratio;
+        break;
+      case "gain":
+        this.product.revenu = this.product.revenu * unlock.ratio;
+        break;
+    }
   }
 
   qtMultiDisplay() {
