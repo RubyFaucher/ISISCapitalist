@@ -1,12 +1,11 @@
 .main {
-  display: grid;
-  grid-template-columns: 30%50%20%;
+  display: flexbox;
   margin-top: 20px;
   margin-left: 20px;
 }
 .product {
-  display: grid;
-  grid-template-columns: 1fr1fr;
+  display: inline-table;
+  margin-left: 40px;
 }
 .logo_monde {
   width: 50px;
@@ -19,6 +18,12 @@
 
 .example-spacer {
   flex: 1 1 auto;
+}
+.upgrades {
+  display: flex;
+  margin-top: 10px;
+  margin-left: 30px;
+  margin-right: 30px;
 }
 
 .modal {
@@ -67,28 +72,48 @@ button:disabled {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  font-size: 20px;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  font-size: medium;
+  margin-top: 3px;
+  margin-bottom: 12px;
+}
+.palliercible {
+  font-size: 10px;
 }
 .cadre {
   display: flex;
   flex-direction: row;
-  width: 35%;
+  width: 50%;
+  height: 60px;
   border: 1px solid #000;
   flex-shrink: 0;
-  margin: 40px;
+  margin: 20px;
   background-color: white;
 }
 .logo {
-  height: 38%;
-  width: 38%;
+  height: 100%;
+  width: 20%;
   object-fit: contain;
-  margin-top: 5px;
 }
 .button-center {
   text-align: center;
 }
 .managersButton {
   width: 100px !important;
+}
+.hirebutton {
+  font-size: small;
+  width: 10%;
+  height: 30px;
+  text-align: center;
+}
+.img-pallier {
+  width: 100%;
+  height: 100%;
+}
+.nomBouton {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-size: small;
+  margin-bottom: 10px;
 }

@@ -18,7 +18,7 @@ and open the template in the editor.
     <products>
         <product>
             <id>1</id>
-            <name>Bière au beurre</name>
+            <name>Bièraubeurre</name>
             <logo>icones/butterbeer.png</logo>
             <cout>1.0</cout>
             <croissance>1.02</croissance>
@@ -44,28 +44,75 @@ and open the template in the editor.
             <palliers>
             </palliers>
         </product>
+        <product>
+            <id>3</id>
+            <name>Eclair de Feu</name>
+            <logo>icones/broomstick.png</logo>
+            <cout>15</cout>
+            <croissance>1.08</croissance>
+            <revenu>30</revenu>
+            <vitesse>6000</vitesse>
+            <quantite>0</quantite>
+            <timeleft>0</timeleft>
+            <managerUnlocked>0</managerUnlocked>
+            <palliers>
+            </palliers>
+        </product>
+        <product>
+            <id>4</id>
+            <name>Pierre philosophale</name>
+            <logo>icones/stone.png</logo>
+            <cout>50</cout>
+            <croissance>2.00</croissance>
+            <revenu>120</revenu>
+            <vitesse>9000</vitesse>
+            <quantite>0</quantite>
+            <timeleft>0</timeleft>
+            <managerUnlocked>0</managerUnlocked>
+            <palliers>
+            </palliers>
+        </product>
     </products>
     <allunlocks>
         <pallier>
-            <name>pallier1</name>
-            <logo>logopal1</logo>
-            <seuil>20</seuil>
-            <idcible>1</idcible>
-            <ratio></ratio>
-            <typeratio></typeratio>
-            <unlocked></unlocked>
-        </pallier>
-        <pallier>
-            <name>pallier2</name>
-            <logo>logopallier2</logo>
-            <seuil>50</seuil>
-            <idcible>2</idcible>
-            <ratio></ratio>
-            <typeratio></typeratio>
+            <name>Expelliarmus</name>
+            <logo>logopal2</logo>
+            <seuil>100</seuil>
+            <idcible>0</idcible>
+            <ratio>3</ratio>
+            <typeratio>vitesse</typeratio>
             <unlocked></unlocked>
         </pallier>
     </allunlocks>
     <upgrades>
+        <pallier>
+            <name>Expecto Patronum</name>
+            <logo>icones/patronum.png</logo>
+            <seuil>20</seuil>
+            <idcible>1</idcible>
+            <ratio>2</ratio>
+            <typeratio>gain</typeratio>
+            <unlocked></unlocked>
+        </pallier>
+        <pallier>
+            <name>Accio</name>
+            <logo>icones/magnet.png</logo>
+            <seuil>50</seuil>
+            <idcible>2</idcible>
+            <ratio>2</ratio>
+            <typeratio>vitesse</typeratio>
+            <unlocked></unlocked>
+        </pallier>
+        <pallier>
+            <name>Wingardium Leviosa</name>
+            <logo>icones/feather.png</logo>
+            <seuil>80</seuil>
+            <idcible>3</idcible>
+            <ratio>2</ratio>
+            <typeratio>vitesse</typeratio>
+            <unlocked></unlocked>
+        </pallier>
+
     </upgrades>
     <angelupgrades>
     </angelupgrades>

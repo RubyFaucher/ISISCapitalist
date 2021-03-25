@@ -53,7 +53,6 @@ export class AppComponent {
   }
   onProductionDone(p: Product) {
     let countManagers = 0;
-    let countUnlocks = 0;
     this.world.money += p.revenu;
     this.world.score += p.revenu;
     this.world.managers.pallier.forEach((manager) => {
@@ -62,12 +61,6 @@ export class AppComponent {
       }
     });
     this.badgeManagers = countManagers;
-    this.world.allunlocks.pallier.forEach((unlock) => {
-      if (this.world.money >= unlock.seuil && !unlock.unlocked) {
-        countUnlocks += 1;
-      }
-    });
-    this.badgeUnlocks = countUnlocks;
   }
 
   onBuy(c: number) {
@@ -82,8 +75,22 @@ export class AppComponent {
     });
     this.badgeManagers = countManagers;
 
-    this.world.allunlocks.pallier.forEach((unlock) => {
-      if (this.world.money >= unlock.seuil && !unlock.unlocked) {
+    this.world.upgrades.pallier.forEach((unlock) => {
+      if (
+        this.world.products.product[unlock.idcible - 1].quantite >=
+          unlock.seuil &&
+        !unlock.unlocked
+      ) {
+        countUnlocks += 1;
+      }
+    });
+    this.badgeUnlocks = countUnlocks;
+    this.world.allunlocks.pallier.forEach((allunlock) => {
+      let qte = 0;
+      this.world.products.product.forEach((product) => {
+        qte += product.quantite;
+      });
+      if (qte >= allunlock.seuil && !allunlock.unlocked) {
         countUnlocks += 1;
       }
     });
@@ -130,8 +137,21 @@ export class AppComponent {
 
   getUnlock(unlock) {
     unlock.unlocked = true;
-    this.world.money -= unlock.seuil;
-    this.world.score -= unlock.seuil;
+    if (unlock.typeratio == "gain") {
+      if (unlock.idcible != 0) {
+        this.world.products.product[unlock.idcible - 1].revenu =
+          this.world.products.product[unlock.idcible - 1].revenu * unlock.ratio;
+      } else {
+        this.world.products.product.forEach((product) => {
+          product.revenu = product.revenu * unlock.ratio;
+        });
+      }
+    } else if (unlock.typeratio == "vitesse") {
+    }
+    if (unlock.idcible != 0) {
+      this.world.products.product[unlock.idcible - 1].palliers += unlock;
+    }
+
     this.popMessage("Bravo, vous venez de débloquer " + unlock.name);
     this.badgeUnlocks -= 1;
     if (this.badgeUnlocks < 0) {
