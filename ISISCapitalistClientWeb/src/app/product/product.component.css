@@ -1,13 +1,13 @@
 .logo_produit {
   margin-top: 50px;
-  width: 60px;
-  height: 60px;
+  width: 70px;
+  height: 70px;
 }
 .progressbar {
   height: 20px;
-  width: 100px;
+  width: 120px;
   bottom: 35px;
-  left: 65px;
+  left: 74px;
 }
 .lesdeux {
   position: relative;
@@ -15,10 +15,13 @@
 }
 .lesecond {
   position: absolute;
-  bottom: 20px;
-  left: -10px;
+  bottom: 10px;
+  left: -15px;
 }
 button:disabled {
   background-color: #c0c0c0 !important;
   color: #ffffff !important;
+}
+.small-chip {
+  font-size: small;
 }

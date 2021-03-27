@@ -77,6 +77,7 @@ public class Services {
     public Boolean updateProduct(String username, ProductType newproduct) {
         World world = getWorld(username);
         double money = world.getMoney();
+
         ProductType product = findProductById(world, newproduct.getId());
         if (product == null) {
             return false;
@@ -90,7 +91,7 @@ public class Services {
                     * ((1 - Math.pow(newproduct.getCroissance(), qtchange)) / (1 - newproduct.getCroissance()))));
             product.setQuantite(qteprod + qtchange);
             for (PallierType unlock : product.getPalliers().getPallier()) {
-                if((qtchange>=unlock.getSeuil()) & (!unlock.isUnlocked()) ){
+                if((product.getQuantite()>=unlock.getSeuil()) & (!unlock.isUnlocked()) ){
                     unlock.setUnlocked(true);
                     switch (unlock.getTyperatio()){
                         case VITESSE:

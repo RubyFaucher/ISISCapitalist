@@ -99,9 +99,170 @@ and open the template in the editor.
             <palliers>
                 <pallier>
                     <name>Levicorpus</name>
-                    <logo>icones/feather.png</logo>
+                    <logo>icones/levitation.png</logo>
                     <seuil>80</seuil>
                     <idcible>4</idcible>
+                    <ratio>2</ratio>
+                    <typeratio>vitesse</typeratio>
+                    <unlocked></unlocked>
+                </pallier>
+            </palliers>
+        </product>
+        <product>
+            <id>5</id>
+            <name>Lorgnospectres</name>
+            <logo>icones/lorgnospectres.png</logo>
+            <cout>80</cout>
+            <croissance>2.50</croissance>
+            <revenu>160</revenu>
+            <vitesse>12000</vitesse>
+            <quantite>0</quantite>
+            <timeleft>0</timeleft>
+            <managerUnlocked>0</managerUnlocked>
+            <palliers>
+                <pallier>
+                    <name>Lumos</name>
+                    <logo>icones/light.png</logo>
+                    <seuil>90</seuil>
+                    <idcible>5</idcible>
+                    <ratio>2</ratio>
+                    <typeratio>gain</typeratio>
+                    <unlocked></unlocked>
+                </pallier>
+            </palliers>
+        </product>
+        <product>
+            <id>6</id>
+            <name>Carte du Maraudeur</name>
+            <logo>icones/marauders-map.png</logo>
+            <cout>100</cout>
+            <croissance>2.70</croissance>
+            <revenu>200</revenu>
+            <vitesse>15000</vitesse>
+            <quantite>0</quantite>
+            <timeleft>0</timeleft>
+            <managerUnlocked>0</managerUnlocked>
+            <palliers>
+                <pallier>
+                    <name>Alohomora</name>
+                    <logo>icones/lock.png</logo>
+                    <seuil>80</seuil>
+                    <idcible>6</idcible>
+                    <ratio>2</ratio>
+                    <typeratio>vitesse</typeratio>
+                    <unlocked></unlocked>
+                </pallier>
+            </palliers>
+        </product>
+        <product>
+            <id>7</id>
+            <name>Chocogrenouille</name>
+            <logo>icones/chocolate-frog.png</logo>
+            <cout>80</cout>
+            <croissance>2.50</croissance>
+            <revenu>100</revenu>
+            <vitesse>10000</vitesse>
+            <quantite>0</quantite>
+            <timeleft>0</timeleft>
+            <managerUnlocked>0</managerUnlocked>
+            <palliers>
+                <pallier>
+                    <name>Petrificus Totalus</name>
+                    <logo>icones/statue.png</logo>
+                    <seuil>90</seuil>
+                    <idcible>7</idcible>
+                    <ratio>2</ratio>
+                    <typeratio>gain</typeratio>
+                    <unlocked></unlocked>
+                </pallier>
+            </palliers>
+        </product>
+        <product>
+            <id>8</id>
+            <name>Bague de Gaunt</name>
+            <logo>icones/gaunts-ring.png</logo>
+            <cout>300</cout>
+            <croissance>2.90</croissance>
+            <revenu>500</revenu>
+            <vitesse>20000</vitesse>
+            <quantite>0</quantite>
+            <timeleft>0</timeleft>
+            <managerUnlocked>0</managerUnlocked>
+            <palliers>
+                <pallier>
+                    <name>Aguamenti</name>
+                    <logo>icones/splash.png</logo>
+                    <seuil>90</seuil>
+                    <idcible>8</idcible>
+                    <ratio>2</ratio>
+                    <typeratio>vitesse</typeratio>
+                    <unlocked></unlocked>
+                </pallier>
+            </palliers>
+        </product>
+        <product>
+            <id>9</id>
+            <name>Oeuf d'or</name>
+            <logo>icones/golden-egg.png</logo>
+            <cout>450</cout>
+            <croissance>3.00</croissance>
+            <revenu>700</revenu>
+            <vitesse>23000</vitesse>
+            <quantite>0</quantite>
+            <timeleft>0</timeleft>
+            <managerUnlocked>0</managerUnlocked>
+            <palliers>
+                <pallier>
+                    <name>Oubliette</name>
+                    <logo>icones/amnesia.png</logo>
+                    <seuil>80</seuil>
+                    <idcible>9</idcible>
+                    <ratio>2</ratio>
+                    <typeratio>gain</typeratio>
+                    <unlocked></unlocked>
+                </pallier>
+            </palliers>
+        </product>
+        <product>
+            <id>10</id>
+            <name>Epee de griffondor</name>
+            <logo>icones/griffindor-sword.png</logo>
+            <cout>500</cout>
+            <croissance>3.50</croissance>
+            <revenu>1200</revenu>
+            <vitesse>25000</vitesse>
+            <quantite>0</quantite>
+            <timeleft>0</timeleft>
+            <managerUnlocked>0</managerUnlocked>
+            <palliers>
+                <pallier>
+                    <name>Occulus Reparo</name>
+                    <logo>icones/glasses.png</logo>
+                    <seuil>80</seuil>
+                    <idcible>10</idcible>
+                    <ratio>2</ratio>
+                    <typeratio>vitesse</typeratio>
+                    <unlocked></unlocked>
+                </pallier>
+            </palliers>
+        </product>
+        <product>
+            <id>11</id>
+            <name>Vif d'or</name>
+            <logo>icones/snitch.png</logo>
+            <cout>250</cout>
+            <croissance>3.00</croissance>
+            <revenu>700</revenu>
+            <vitesse>21000</vitesse>
+            <quantite>0</quantite>
+            <timeleft>0</timeleft>
+            <managerUnlocked>0</managerUnlocked>
+            <palliers>
+                <pallier>
+                    <name>Protego</name>
+                    <logo>icones/shield.png</logo>
+                    <seuil>80</seuil>
+                    <idcible>11</idcible>
                     <ratio>2</ratio>
                     <typeratio>vitesse</typeratio>
                     <unlocked></unlocked>
@@ -112,22 +273,85 @@ and open the template in the editor.
     <allunlocks>
         <pallier>
             <name>Expelliarmus</name>
-            <logo>logopal2</logo>
+            <logo>icones/magic-wand.png</logo>
             <seuil>100</seuil>
             <idcible>0</idcible>
             <ratio>3</ratio>
             <typeratio>vitesse</typeratio>
             <unlocked></unlocked>
         </pallier>
+        <pallier>
+            <name>Riddikulus</name>
+            <logo>icones/clown.png</logo>
+            <seuil>200</seuil>
+            <idcible>0</idcible>
+            <ratio>4</ratio>
+            <typeratio>gain</typeratio>
+            <unlocked></unlocked>
+        </pallier>
     </allunlocks>
     <upgrades>
         <pallier>
-            <name></name>
-            <logo></logo>
-            <seuil></seuil>
-            <idcible></idcible>
-            <ratio></ratio>
-            <typeratio></typeratio>
+            <name>Poudlard Express</name>
+            <logo>icones/hogwarts-express.png</logo>
+            <seuil>40</seuil>
+            <idcible>1</idcible>
+            <ratio>2</ratio>
+            <typeratio>gain</typeratio>
+            <unlocked></unlocked>
+        </pallier>
+        <pallier>
+            <name>Miroir d'erised</name>
+            <logo>icones/erised.png</logo>
+            <seuil>70</seuil>
+            <idcible>2</idcible>
+            <ratio>2</ratio>
+            <typeratio>gain</typeratio>
+            <unlocked></unlocked>
+        </pallier>
+        <pallier>
+            <name>Ford Anglia</name>
+            <logo>icones/anglia-ford.png</logo>
+            <seuil>65</seuil>
+            <idcible>3</idcible>
+            <ratio>2</ratio>
+            <typeratio>gain</typeratio>
+            <unlocked></unlocked>
+        </pallier>
+        <pallier>
+            <name>Coupe de Feu</name>
+            <logo>icones/goblet-of-fire.png</logo>
+            <seuil>50</seuil>
+            <idcible>4</idcible>
+            <ratio>2</ratio>
+            <typeratio>gain</typeratio>
+            <unlocked></unlocked>
+        </pallier>
+        <pallier>
+            <name>Beuglante</name>
+            <logo>icones/howler.png</logo>
+            <seuil>50</seuil>
+            <idcible>5</idcible>
+            <ratio>2</ratio>
+            <typeratio>gain</typeratio>
+            <unlocked></unlocked>
+        </pallier>
+        <pallier>
+            <name>Cape d'invisibilité</name>
+            <logo>icones/invisibility-cloak.png</logo>
+            <seuil>60</seuil>
+            <idcible>6</idcible>
+            <ratio>2</ratio>
+            <typeratio>gain</typeratio>
+            <unlocked></unlocked>
+        </pallier>
+        <pallier>
+            <name>Magicobus</name>
+            <logo>icones/magicobus.png</logo>
+            <seuil>60</seuil>
+            <idcible>7</idcible>
+            <ratio>2</ratio>
+            <typeratio>gain</typeratio>
             <unlocked></unlocked>
         </pallier>
     </upgrades>
@@ -146,8 +370,80 @@ and open the template in the editor.
         <pallier>
             <name>Dumbledore</name>
             <logo>icones/dumbledore.png</logo>
-            <seuil>60</seuil>
+            <seuil>3000</seuil>
             <idcible>2</idcible>
+            <ratio></ratio>
+            <typeratio>vitesse</typeratio>
+            <unlocked>false</unlocked>
+        </pallier>
+        <pallier>
+            <name>Choixpeau</name>
+            <logo>icones/sorting-hat.jpeg</logo>
+            <seuil>7000</seuil>
+            <idcible>3</idcible>
+            <ratio></ratio>
+            <typeratio>vitesse</typeratio>
+            <unlocked>false</unlocked>
+        </pallier>
+        <pallier>
+            <name>Dobby</name>
+            <logo>icones/dobby.png</logo>
+            <seuil>10000</seuil>
+            <idcible>4</idcible>
+            <ratio></ratio>
+            <typeratio>vitesse</typeratio>
+            <unlocked>false</unlocked>
+        </pallier>
+        <pallier>
+            <name>Edwige</name>
+            <logo>icones/edwige.png</logo>
+            <seuil>13000</seuil>
+            <idcible>5</idcible>
+            <ratio></ratio>
+            <typeratio>vitesse</typeratio>
+            <unlocked>false</unlocked>
+        </pallier>
+        <pallier>
+            <name>Mcgonagall</name>
+            <logo>icones/mcgonagall.png</logo>
+            <seuil>17000</seuil>
+            <idcible>6</idcible>
+            <ratio></ratio>
+            <typeratio>vitesse</typeratio>
+            <unlocked>false</unlocked>
+        </pallier>
+        <pallier>
+            <name>Hagrid</name>
+            <logo>icones/hagrid.png</logo>
+            <seuil>20000</seuil>
+            <idcible>7</idcible>
+            <ratio></ratio>
+            <typeratio>vitesse</typeratio>
+            <unlocked>false</unlocked>
+        </pallier>
+        <pallier>
+            <name>Rogue</name>
+            <logo>icones/rogue.png</logo>
+            <seuil>26000</seuil>
+            <idcible>8</idcible>
+            <ratio></ratio>
+            <typeratio>vitesse</typeratio>
+            <unlocked>false</unlocked>
+        </pallier>
+        <pallier>
+            <name>Luna Lovegood</name>
+            <logo>icones/lovegood.png</logo>
+            <seuil>30000</seuil>
+            <idcible>9</idcible>
+            <ratio></ratio>
+            <typeratio>vitesse</typeratio>
+            <unlocked>false</unlocked>
+        </pallier>
+        <pallier>
+            <name>Voldemort</name>
+            <logo>icones/voldemort.png</logo>
+            <seuil>50000</seuil>
+            <idcible>10</idcible>
             <ratio></ratio>
             <typeratio>vitesse</typeratio>
             <unlocked>false</unlocked>
