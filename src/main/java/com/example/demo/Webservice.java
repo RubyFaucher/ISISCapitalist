@@ -51,17 +51,15 @@ public class Webservice {
     @Path("manager")
     public Response updateManager(@Context HttpServletRequest request, @RequestBody PallierType pallier) {
         String username = request.getHeader("X-user");
-        System.out.println("Updating " + pallier.getName());
         return Response.ok(services.updateManager(username, pallier)).build();
 
     }
 
     @PUT
-    @Path("unlock")
-    public Response updateUnlock(@Context HttpServletRequest request, @RequestBody PallierType pallier) {
+    @Path("allunlock")
+    public Response updateAllUnlock(@Context HttpServletRequest request, @RequestBody PallierType pallier) {
         String username = request.getHeader("X-user");
-        System.out.println("Updating " + pallier.getName());
-        return Response.ok(services.updateUnlock(username, pallier)).build();
+        return Response.ok(services.updateAllUnlock(username, pallier)).build();
 
     }
 }

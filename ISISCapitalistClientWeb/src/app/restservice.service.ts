@@ -48,9 +48,9 @@ export class RestserviceService {
       })
       .toPromise();
   }
-  putUnlock(unlock: Pallier): Promise<any> {
+  putAllUnlock(allunlock: Pallier): Promise<any> {
     return this.http
-      .put(this.server + "adventureisis/generic/unlock", unlock, {
+      .put(this.server + "adventureisis/generic/allunlock", allunlock, {
         headers: this.setHeaders(this.user),
       })
       .toPromise();

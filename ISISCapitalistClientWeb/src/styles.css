@@ -6,3 +6,7 @@ body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+.green-snackbar {
+  background: rgb(90, 193, 142) !important;
+  color: white !important;
+}

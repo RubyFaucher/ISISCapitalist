@@ -98,7 +98,7 @@ button:disabled {
   text-align: center;
 }
 .managersButton {
-  width: 100px !important;
+  width: 130px !important;
 }
 .hirebutton {
   font-size: small;
@@ -116,4 +116,11 @@ button:disabled {
   justify-content: space-between;
   font-size: small;
   margin-bottom: 10px;
+}
+.not-unlocked {
+  color: gray;
+}
+
+.unlocked {
+  color: green;
 }

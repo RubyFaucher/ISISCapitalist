@@ -33,13 +33,22 @@
   <span class="example-spacer"></span>
   <button
     (click)="changeShowUnlocks()"
-    [matBadge]="badgeUnlocks"
-    [matBadgeHidden]="badgeUnlocks == 0"
     class="managersButton"
     mat-raised-button
     color="accent"
   >
     Unlocks
+  </button>
+  <span class="example-spacer"></span>
+  <button
+    (click)="changeShowCashUpgrades()"
+    [matBadge]="badgeCashUpgrades"
+    [matBadgeHidden]="badgeCashUpgrades == 0"
+    class="managersButton"
+    mat-raised-button
+    color="accent"
+  >
+    Cash Upgrades
   </button>
   <span class="example-spacer"></span>
 
@@ -115,38 +124,30 @@
       <h1 class="title">Unlocks make your life easier !</h1>
     </div>
     <div>
-      <div *ngFor="let unlock of this.world.upgrades.pallier">
-        <div *ngIf="!unlock.unlocked" class="pallierlayout">
-          <div class="cadre">
-            <div class="logo">
-              <img class="img-pallier" [attr.src]="server + unlock.logo" />
-            </div>
-            <div class="pallier">
-              <div class="nomPrix">
-                <span>{{ unlock.name }}</span>
-                <span>{{ unlock.seuil }}</span>
+      <div *ngFor="let produit of world.products.product">
+        <div *ngFor="let unlock of produit.palliers.pallier">
+          <div class="pallierlayout">
+            <div class="cadre">
+              <div class="logo">
+                <img class="img-pallier" [attr.src]="server + unlock.logo" />
               </div>
-              <div class="nomBouton">
-                <span class="palliercible">
-                  {{ world.products.product[unlock.idcible - 1].name }}
-                  {{ unlock.typeratio }} x{{ unlock.ratio }}
-                </span>
-                <span
-                  ><button
-                    mat-raised-button
-                    class="hirebutton"
-                    color="accent"
-                    (click)="getUnlock(unlock)"
-                    [disabled]="
-                      !(
-                        world.products.product[unlock.idcible - 1].quantite >=
-                        unlock.seuil
-                      )
-                    "
+              <div class="pallier">
+                <div class="nomPrix">
+                  <span>{{ unlock.name }}</span>
+                  <span>{{ unlock.seuil }}</span>
+                </div>
+                <div class="nomBouton">
+                  <span class="palliercible">
+                    {{ world.products.product[unlock.idcible - 1].name }}
+                    {{ unlock.typeratio }} x{{ unlock.ratio }}
+                  </span>
+                  <span>
+                    <mat-icon
+                      [ngClass]="unlock.unlocked ? 'unlocked' : 'not-unlocked'"
+                      >check_circle</mat-icon
+                    ></span
                   >
-                    Get !
-                  </button></span
-                >
+                </div>
               </div>
             </div>
           </div>
@@ -167,16 +168,11 @@
                 <span class="palliercible">
                   {{ allunlock.typeratio }} x{{ allunlock.ratio }}
                 </span>
-                <span
-                  ><button
-                    mat-raised-button
-                    class="hirebutton"
-                    color="accent"
-                    (click)="getUnlock(allunlock)"
-                    [disabled]="!(this.countQuantity() >= allunlock.seuil)"
-                  >
-                    Get !
-                  </button></span
+                <span>
+                  <mat-icon
+                    [ngClass]="allunlock.unlocked ? 'unlocked' : 'not-unlocked'"
+                    >check_circle</mat-icon
+                  ></span
                 >
               </div>
             </div>
@@ -189,6 +185,55 @@
           class="closebutton"
           color="primary"
           (click)="showUnlocks = !showUnlocks"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="showCashUpgrades" class="modal">
+    <div>
+      <h1 class="title">Cash Upgrades make you feel better !</h1>
+    </div>
+    <div>
+      <div *ngFor="let manager of world.managers.pallier">
+        <div *ngIf="!manager.unlocked" class="pallierlayout">
+          <div class="cadre">
+            <div class="logo">
+              <img class="img-pallier" [attr.src]="server + manager.logo" />
+            </div>
+            <div class="pallier">
+              <div class="nomPrix">
+                <span>{{ manager.name }}</span>
+                <span>{{ manager.seuil }}£</span>
+              </div>
+              <div class="nomBouton">
+                <span class="palliercible">
+                  {{ world.products.product[manager.idcible - 1].name }}
+                </span>
+                <span
+                  ><button
+                    mat-raised-button
+                    class="hirebutton"
+                    color="accent"
+                    (click)="hireManager(manager)"
+                    [disabled]="!(world.money >= manager.seuil)"
+                  >
+                    Hire !
+                  </button></span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="button-center">
+        <button
+          mat-raised-button
+          class="closebutton"
+          color="primary"
+          (click)="showManagers = !showManagers"
         >
           Close
         </button>

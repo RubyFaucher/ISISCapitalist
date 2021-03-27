@@ -3,6 +3,7 @@ import { Component, QueryList, ViewChildren } from "@angular/core";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { ProductComponent } from "./product/product.component";
 import { RestserviceService } from "./restservice.service";
+import { SnackunlockComponent } from "./snackunlock/snackunlock.component";
 import { World, Product, Pallier } from "./world";
 
 @Component({
@@ -18,8 +19,9 @@ export class AppComponent {
   qtmulti: string;
   showManagers: boolean;
   showUnlocks: boolean;
+  showCashUpgrades: boolean;
   badgeManagers: number;
-  badgeUnlocks: number;
+  badgeCashUpgrades: number;
   username: string;
 
   constructor(
@@ -31,7 +33,7 @@ export class AppComponent {
     this.showManagers = false;
     this.showUnlocks = false;
     this.badgeManagers = 0;
-    this.badgeUnlocks = 0;
+    this.badgeCashUpgrades = 0;
     this.username = localStorage.getItem("username");
     if (
       this.username == "null" ||
@@ -76,27 +78,23 @@ export class AppComponent {
       }
     });
     this.badgeManagers = countManagers;
-
-    this.world.upgrades.pallier.forEach((unlock) => {
-      if (
-        this.world.products.product[unlock.idcible - 1].quantite >=
-          unlock.seuil &&
-        !unlock.unlocked
-      ) {
-        countUnlocks += 1;
-      }
+    this.world.products.product.forEach((produit) => {
+      produit.palliers.pallier.forEach((unlock) => {
+        if (produit.quantite >= unlock.seuil && !unlock.unlocked) {
+          this.getUnlock(unlock);
+        }
+      });
     });
-    this.badgeUnlocks = countUnlocks;
+
     this.world.allunlocks.pallier.forEach((allunlock) => {
       let qte = 0;
       this.world.products.product.forEach((product) => {
         qte += product.quantite;
       });
       if (qte >= allunlock.seuil && !allunlock.unlocked) {
-        countUnlocks += 1;
+        this.getUnlock(allunlock);
       }
     });
-    this.badgeUnlocks = countUnlocks;
   }
   countQuantity() {
     let qte = 0;
@@ -128,28 +126,38 @@ export class AppComponent {
   changeShowUnlocks() {
     this.showUnlocks = !this.showUnlocks;
   }
+  changeShowCashUpgrades() {
+    this.showCashUpgrades = !this.showCashUpgrades;
+  }
   hireManager(manager) {
     manager.unlocked = true;
     this.world.money -= manager.seuil;
     this.world.score -= manager.seuil;
     this.world.products.product[manager.idcible - 1].managerUnlocked = true;
-    this.popMessage("Bravo, vous venez d'embaucher " + manager.name);
+    this.popMessage("Bravo, vous venez d'embaucher " + manager.name + "!!");
     this.badgeManagers -= 1;
     if (this.badgeManagers < 0) {
       this.badgeManagers = 0;
     }
     this.service.putManager(manager);
   }
+
   popMessage(message: string): void {
-    this.snackBar.open(message, "", { duration: 2000 });
+    this.snackBar.openFromComponent(SnackunlockComponent, {
+      data: { html: message, icon: "" },
+      duration: 2000,
+      panelClass: ["green-snackbar"],
+    });
   }
 
   getUnlock(unlock) {
+    let pName = "Tous les produits";
     unlock.unlocked = true;
     if (unlock.idcible != 0) {
       this.produits.forEach((produit) => {
         if (produit.product.id == unlock.idcible) {
           produit.calcUpgrade(unlock);
+          pName = produit.product.name;
         }
       });
     } else {
@@ -158,11 +166,18 @@ export class AppComponent {
       });
     }
 
-    this.popMessage(unlock.name + " " + unlock.typeratio + " x" + unlock.ratio);
-    this.badgeUnlocks -= 1;
-    if (this.badgeUnlocks < 0) {
-      this.badgeUnlocks = 0;
-    }
-    this.service.putUnlock(unlock);
+    this.popMessage(
+      "Unlocked " +
+        unlock.name +
+        ", " +
+        pName +
+        " " +
+        unlock.typeratio +
+        " x" +
+        unlock.ratio +
+        "!!"
+    );
+
+    this.service.putAllUnlock(unlock);
   }
 }

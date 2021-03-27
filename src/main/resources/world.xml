@@ -28,6 +28,15 @@ and open the template in the editor.
             <timeleft>0</timeleft>
             <managerUnlocked>0</managerUnlocked>
             <palliers>
+                <pallier>
+                    <name>Expecto Patronum</name>
+                    <logo>icones/patronum.png</logo>
+                    <seuil>20</seuil>
+                    <idcible>1</idcible>
+                    <ratio>2</ratio>
+                    <typeratio>gain</typeratio>
+                    <unlocked></unlocked>
+                </pallier>
             </palliers>
         </product>
         <product>
@@ -42,6 +51,15 @@ and open the template in the editor.
             <timeleft>0</timeleft>
             <managerUnlocked>0</managerUnlocked>
             <palliers>
+                <pallier>
+                    <name>Accio</name>
+                    <logo>icones/magnet.png</logo>
+                    <seuil>50</seuil>
+                    <idcible>2</idcible>
+                    <ratio>2</ratio>
+                    <typeratio>vitesse</typeratio>
+                    <unlocked></unlocked>
+                </pallier>
             </palliers>
         </product>
         <product>
@@ -56,6 +74,15 @@ and open the template in the editor.
             <timeleft>0</timeleft>
             <managerUnlocked>0</managerUnlocked>
             <palliers>
+                <pallier>
+                    <name>Wingardium Leviosa</name>
+                    <logo>icones/feather.png</logo>
+                    <seuil>80</seuil>
+                    <idcible>3</idcible>
+                    <ratio>2</ratio>
+                    <typeratio>vitesse</typeratio>
+                    <unlocked></unlocked>
+                </pallier>
             </palliers>
         </product>
         <product>
@@ -70,6 +97,15 @@ and open the template in the editor.
             <timeleft>0</timeleft>
             <managerUnlocked>0</managerUnlocked>
             <palliers>
+                <pallier>
+                    <name>Levicorpus</name>
+                    <logo>icones/feather.png</logo>
+                    <seuil>80</seuil>
+                    <idcible>4</idcible>
+                    <ratio>2</ratio>
+                    <typeratio>vitesse</typeratio>
+                    <unlocked></unlocked>
+                </pallier>
             </palliers>
         </product>
     </products>
@@ -86,33 +122,14 @@ and open the template in the editor.
     </allunlocks>
     <upgrades>
         <pallier>
-            <name>Expecto Patronum</name>
-            <logo>icones/patronum.png</logo>
-            <seuil>20</seuil>
-            <idcible>1</idcible>
-            <ratio>2</ratio>
-            <typeratio>gain</typeratio>
+            <name></name>
+            <logo></logo>
+            <seuil></seuil>
+            <idcible></idcible>
+            <ratio></ratio>
+            <typeratio></typeratio>
             <unlocked></unlocked>
         </pallier>
-        <pallier>
-            <name>Accio</name>
-            <logo>icones/magnet.png</logo>
-            <seuil>50</seuil>
-            <idcible>2</idcible>
-            <ratio>2</ratio>
-            <typeratio>vitesse</typeratio>
-            <unlocked></unlocked>
-        </pallier>
-        <pallier>
-            <name>Wingardium Leviosa</name>
-            <logo>icones/feather.png</logo>
-            <seuil>80</seuil>
-            <idcible>3</idcible>
-            <ratio>2</ratio>
-            <typeratio>vitesse</typeratio>
-            <unlocked></unlocked>
-        </pallier>
-
     </upgrades>
     <angelupgrades>
     </angelupgrades>
@@ -122,7 +139,7 @@ and open the template in the editor.
             <logo>icones/harry-potter.png</logo>
             <seuil>3</seuil>
             <idcible>1</idcible>
-            <ratio>3.1415926535</ratio>
+            <ratio></ratio>
             <typeratio>vitesse</typeratio>
             <unlocked>false</unlocked>
         </pallier>
@@ -131,7 +148,7 @@ and open the template in the editor.
             <logo>icones/dumbledore.png</logo>
             <seuil>60</seuil>
             <idcible>2</idcible>
-            <ratio>3.1415926535</ratio>
+            <ratio></ratio>
             <typeratio>vitesse</typeratio>
             <unlocked>false</unlocked>
         </pallier>

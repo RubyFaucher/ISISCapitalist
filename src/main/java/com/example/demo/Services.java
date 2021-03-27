@@ -89,7 +89,22 @@ public class Services {
             world.setScore(money - (newproduct.getCout()
                     * ((1 - Math.pow(newproduct.getCroissance(), qtchange)) / (1 - newproduct.getCroissance()))));
             product.setQuantite(qteprod + qtchange);
-
+            for (PallierType unlock : product.getPalliers().getPallier()) {
+                if((qtchange>=unlock.getSeuil()) & (!unlock.isUnlocked()) ){
+                    unlock.setUnlocked(true);
+                    switch (unlock.getTyperatio()){
+                        case VITESSE:
+                            if (product.getTimeleft() > 0) {
+                                product.setTimeleft(product.getTimeleft() / 2);
+                            }
+                            product.setVitesse((int) (product.getVitesse() / unlock.getRatio())); 
+                            break;
+                        case GAIN:
+                            product.setRevenu(product.getRevenu() * unlock.getRatio()); 
+                            break;
+                    }
+                }
+            }
         } else {
 
             product.setTimeleft(product.getVitesse());
@@ -123,48 +138,29 @@ public class Services {
         saveWorldToXml(username, world);
         return true;
     }
-    public boolean updateUnlock(String username, PallierType newunlock){
+    public boolean updateAllUnlock(String username, PallierType newallunlock){
         World world = getWorld(username);
-        PallierType unlock = findUnlockByName(world, newunlock.getName());
-        if (unlock == null) {
+        PallierType allunlock = findAllUnlockByName(world, newallunlock.getName());
+        if (allunlock == null) {
             return false;
         }
         //débloquer l'unlock
-        unlock.setUnlocked(true);
-        //On vérifie si c'est un unlock ou un allunlock
-        if(unlock.getIdcible()!=0){
-            // trouver le produit correspondant a l'unlock
-            ProductType product = findProductById(world, unlock.getIdcible());
-            if (product == null) {
-                return false;
-            }
-            switch (unlock.getTyperatio()){
-                case VITESSE:
-                    if (product.getTimeleft() > 0) {
-                        product.setTimeleft(product.getTimeleft() / 2);
-                    }
-                    product.setVitesse((int) (product.getVitesse() / unlock.getRatio())); 
-                    break;
-                case GAIN:
-                    product.setRevenu(product.getRevenu() * unlock.getRatio()); 
-                    break;
-            }
-        } else{
+        allunlock.setUnlocked(true);
             for (ProductType produit : world.getProducts().getProduct()) {
-                switch (unlock.getTyperatio()){
+                switch (allunlock.getTyperatio()){
                     case VITESSE:
                         if (produit.getTimeleft() > 0) {
                             produit.setTimeleft(produit.getTimeleft() / 2);
                         }
-                        produit.setVitesse((int)(produit.getVitesse() / unlock.getRatio())); 
+                        produit.setVitesse((int)(produit.getVitesse() / allunlock.getRatio())); 
                         break;
                     case GAIN:
-                        produit.setRevenu(produit.getRevenu() * unlock.getRatio()); 
+                        produit.setRevenu(produit.getRevenu() * allunlock.getRatio()); 
                         break;
                 }
             }
             
-         }
+         
         saveWorldToXml(username, world);
         return true;
          
@@ -212,21 +208,16 @@ public class Services {
         return manager;
     }
 
-    private PallierType findUnlockByName(World world, String name) {
-        PallierType unlock = null;
-        for (PallierType pallier : world.getUpgrades().getPallier()) {
-            if (pallier.getName().equals(name)) {
-                unlock = pallier;
-            }
-
-        }
+    private PallierType findAllUnlockByName(World world, String name) {
+        PallierType allunlock = null;
+        
         for (PallierType pallier : world.getAllunlocks().getPallier()) {
             if (pallier.getName().equals(name)) {
-                unlock = pallier;
+                allunlock = pallier;
             }
 
         }
-        return unlock;
+        return allunlock;
     }
 
     private ProductType findProductById(World world, int id) {
