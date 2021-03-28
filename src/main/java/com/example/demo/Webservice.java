@@ -47,6 +47,7 @@ public class Webservice {
         return Response.ok(services.updateProduct(username, product)).build();
     }
 
+
     @PUT
     @Path("manager")
     public Response updateManager(@Context HttpServletRequest request, @RequestBody PallierType pallier) {

@@ -77,6 +77,7 @@ public class Services {
     public Boolean updateProduct(String username, ProductType newproduct) {
         World world = getWorld(username);
         double money = world.getMoney();
+        double newMoney;
 
         ProductType product = findProductById(world, newproduct.getId());
         if (product == null) {
@@ -85,10 +86,28 @@ public class Services {
         int qteprod = product.getQuantite();
         int qtchange = newproduct.getQuantite() - qteprod;
         if (qtchange > 0) {
-            world.setMoney(money - (newproduct.getCout()
-                    * ((1 - Math.pow(newproduct.getCroissance(), qtchange)) / (1 - newproduct.getCroissance()))));
-            world.setScore(money - (newproduct.getCout()
-                    * ((1 - Math.pow(newproduct.getCroissance(), qtchange)) / (1 - newproduct.getCroissance()))));
+            if(qtchange == 1){
+                /*if(qteprod!=0){
+                    newMoney = money-(product.getCout()+(product.getCout()*product.getCroissance()));
+                    System.out.println("if old cout :" + product.getCout());
+                    product.setCout(product.getCout()+(product.getCout()*product.getCroissance()));
+                    System.out.println("if new cout : " + product.getCout());
+                }else{*/
+                    newMoney = money-(product.getCout());
+                    System.out.println("else old cout :" + product.getCout());
+                    product.setCout(product.getCout()*product.getCroissance());
+                    System.out.println("else new cout : " + product.getCout());
+                //}
+                
+            }else{
+                newMoney = money - (product.getCout() * ((1 - Math.pow(product.getCroissance(), qtchange)) / (1 - product.getCroissance())));
+                product.setCout((product.getCout()
+                * ((1 - Math.pow(product.getCroissance(), qtchange)) / (1 - product.getCroissance()))));
+                
+            }
+            newMoney = newMoney < 0 ? 0 : newMoney;
+            world.setMoney(newMoney);
+            world.setScore(newMoney);
             product.setQuantite(qteprod + qtchange);
             for (PallierType unlock : product.getPalliers().getPallier()) {
                 if((product.getQuantite()>=unlock.getSeuil()) & (!unlock.isUnlocked()) ){
@@ -113,6 +132,7 @@ public class Services {
         }
 
         saveWorldToXml(username, world);
+        System.out.println("argent monde: "+world.getMoney());
         return true;
     }
 

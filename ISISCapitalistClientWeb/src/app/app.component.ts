@@ -69,7 +69,6 @@ export class AppComponent {
 
   onBuy(c: number) {
     let countManagers = 0;
-    let countUnlocks = 0;
     this.world.money -= c;
     this.world.score -= c;
     this.world.managers.pallier.forEach((manager) => {

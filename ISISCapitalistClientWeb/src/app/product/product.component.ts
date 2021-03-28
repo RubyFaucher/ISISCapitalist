@@ -30,7 +30,13 @@ export class ProductComponent implements OnInit {
   @Input()
   set money(value: number) {
     this._money = value;
-    this.calcQteMulti();
+    this.canBuy = this.totalCost <= this._money && this._money != 0;
+    if (this.calcMaxCanBuy() == 0) {
+      this.canBuy = false;
+    }
+    if (this._qtmulti == "xMax") {
+      this.calcQteMulti();
+    }
   }
 
   @Input()
@@ -59,7 +65,6 @@ export class ProductComponent implements OnInit {
     if (this.progressbarvalue == 0) {
       this.product.timeleft = this.product.vitesse;
       this.lastupdate = Date.now();
-      //this.service.putProduct(this.product);
     }
   }
   startManualFabrication() {
@@ -146,6 +151,8 @@ export class ProductComponent implements OnInit {
     } else {
       alert("Vous n'avez pas assez d'argent");
     }
+    this.calcNewPrice();
+    this.calcQteMulti();
     this.service.putProduct(this.product);
   }
 
@@ -165,5 +172,20 @@ export class ProductComponent implements OnInit {
 
   qtMultiDisplay() {
     return this._qtmulti === "xMax" ? "x" + this.maxCanBuy : this._qtmulti;
+  }
+
+  calcNewPrice() {
+    let x = this.product.cout;
+    let c = this.product.croissance;
+    if (this._qtmulti == "x1") {
+      this.product.cout = x * c;
+    } else if (this._qtmulti == "x10") {
+      this.product.cout = x * ((1 - c ** 10) / (1 - c));
+    } else if (this._qtmulti == "x100") {
+      this.product.cout = x * ((1 - c ** 100) / (1 - c));
+    } else {
+      let n = this.calcMaxCanBuy();
+      this.product.cout = x * ((1 - c ** n) / (1 - c));
+    }
   }
 }
