@@ -86,42 +86,34 @@ public class Services {
         int qteprod = product.getQuantite();
         int qtchange = newproduct.getQuantite() - qteprod;
         if (qtchange > 0) {
-            if(qtchange == 1){
-                /*if(qteprod!=0){
-                    newMoney = money-(product.getCout()+(product.getCout()*product.getCroissance()));
-                    System.out.println("if old cout :" + product.getCout());
-                    product.setCout(product.getCout()+(product.getCout()*product.getCroissance()));
-                    System.out.println("if new cout : " + product.getCout());
-                }else{*/
-                    newMoney = money-(product.getCout());
-                    System.out.println("else old cout :" + product.getCout());
-                    product.setCout(product.getCout()*product.getCroissance());
-                    System.out.println("else new cout : " + product.getCout());
-                //}
-                
-            }else{
-                newMoney = money - (product.getCout() * ((1 - Math.pow(product.getCroissance(), qtchange)) / (1 - product.getCroissance())));
+            if (qtchange == 1) {
+                newMoney = money - (product.getCout());
+                product.setCout(product.getCout() * product.getCroissance());
+
+            } else {
+                newMoney = money - (product.getCout()
+                        * ((1 - Math.pow(product.getCroissance(), qtchange)) / (1 - product.getCroissance())));
                 product.setCout((product.getCout()
-                * ((1 - Math.pow(product.getCroissance(), qtchange)) / (1 - product.getCroissance()))));
-                
+                        * ((1 - Math.pow(product.getCroissance(), qtchange)) / (1 - product.getCroissance()))));
+
             }
             newMoney = newMoney < 0 ? 0 : newMoney;
             world.setMoney(newMoney);
             world.setScore(newMoney);
             product.setQuantite(qteprod + qtchange);
             for (PallierType unlock : product.getPalliers().getPallier()) {
-                if((product.getQuantite()>=unlock.getSeuil()) & (!unlock.isUnlocked()) ){
+                if ((product.getQuantite() >= unlock.getSeuil()) & (!unlock.isUnlocked())) {
                     unlock.setUnlocked(true);
-                    switch (unlock.getTyperatio()){
-                        case VITESSE:
-                            if (product.getTimeleft() > 0) {
-                                product.setTimeleft(product.getTimeleft() / 2);
-                            }
-                            product.setVitesse((int) (product.getVitesse() / unlock.getRatio())); 
-                            break;
-                        case GAIN:
-                            product.setRevenu(product.getRevenu() * unlock.getRatio()); 
-                            break;
+                    switch (unlock.getTyperatio()) {
+                    case VITESSE:
+                        if (product.getTimeleft() > 0) {
+                            product.setTimeleft(product.getTimeleft() / 2);
+                        }
+                        product.setVitesse((int) (product.getVitesse() / unlock.getRatio()));
+                        break;
+                    case GAIN:
+                        product.setRevenu(product.getRevenu() * unlock.getRatio());
+                        break;
                     }
                 }
             }
@@ -132,7 +124,7 @@ public class Services {
         }
 
         saveWorldToXml(username, world);
-        System.out.println("argent monde: "+world.getMoney());
+        System.out.println("argent monde: " + world.getMoney());
         return true;
     }
 
@@ -159,33 +151,57 @@ public class Services {
         saveWorldToXml(username, world);
         return true;
     }
-    public boolean updateAllUnlock(String username, PallierType newallunlock){
+
+    public boolean updateUpgrade(String username, PallierType newupgrade) {
         World world = getWorld(username);
-        PallierType allunlock = findAllUnlockByName(world, newallunlock.getName());
-        if (allunlock == null) {
+        PallierType upgrade = findUpgradeByName(world, newupgrade.getName());
+        if (upgrade == null) {
             return false;
         }
-        //débloquer l'unlock
-        allunlock.setUnlocked(true);
+        // on vérifie si l'upgrade s'applique à tous les produits
+        if (upgrade.getIdcible() != 0) {
+            // trouver le produit correspondant a l'upgrade
+            ProductType product = findProductById(world, upgrade.getIdcible());
+            if (product == null) {
+                return false;
+            }
+            // débloquer l'upgrade
+            upgrade.setUnlocked(true);
+            switch (upgrade.getTyperatio()) {
+            case VITESSE:
+                if (product.getTimeleft() > 0) {
+                    product.setTimeleft(product.getTimeleft() / 2);
+                }
+                product.setVitesse((int) (product.getVitesse() / upgrade.getRatio()));
+                break;
+            case GAIN:
+                product.setRevenu(product.getRevenu() * upgrade.getRatio());
+                break;
+            }
+
+        } else {
+            // débloquer l'upgrade
+            upgrade.setUnlocked(true);
             for (ProductType produit : world.getProducts().getProduct()) {
-                switch (allunlock.getTyperatio()){
-                    case VITESSE:
-                        if (produit.getTimeleft() > 0) {
-                            produit.setTimeleft(produit.getTimeleft() / 2);
-                        }
-                        produit.setVitesse((int)(produit.getVitesse() / allunlock.getRatio())); 
-                        break;
-                    case GAIN:
-                        produit.setRevenu(produit.getRevenu() * allunlock.getRatio()); 
-                        break;
+                switch (upgrade.getTyperatio()) {
+                case VITESSE:
+                    if (produit.getTimeleft() > 0) {
+                        produit.setTimeleft(produit.getTimeleft() / 2);
+                    }
+                    produit.setVitesse((int) (produit.getVitesse() / upgrade.getRatio()));
+                    break;
+                case GAIN:
+                    produit.setRevenu(produit.getRevenu() * upgrade.getRatio());
+                    break;
                 }
             }
-            
-         
+        }
+        System.out.println("argent monde: " + world.getMoney());
         saveWorldToXml(username, world);
         return true;
-         
+
     }
+
     private void updateScore(World world) {
         long tempsecoule = System.currentTimeMillis() - world.getLastupdate();
         for (ProductType product : world.getProducts().getProduct()) {
@@ -229,16 +245,27 @@ public class Services {
         return manager;
     }
 
-    private PallierType findAllUnlockByName(World world, String name) {
-        PallierType allunlock = null;
-        
+    private PallierType findUpgradeByName(World world, String name) {
+        PallierType upgrade = null;
+
         for (PallierType pallier : world.getAllunlocks().getPallier()) {
             if (pallier.getName().equals(name)) {
-                allunlock = pallier;
+                upgrade = pallier;
             }
 
         }
-        return allunlock;
+        for (PallierType pallier : world.getUpgrades().getPallier()) {
+            if (pallier.getName().equals(name)) {
+                upgrade = pallier;
+                double money = world.getMoney();
+                world.setMoney(money - upgrade.getSeuil());
+                world.setScore(money - upgrade.getSeuil());
+
+            }
+
+        }
+
+        return upgrade;
     }
 
     private ProductType findProductById(World world, int id) {

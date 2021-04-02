@@ -47,7 +47,6 @@ public class Webservice {
         return Response.ok(services.updateProduct(username, product)).build();
     }
 
-
     @PUT
     @Path("manager")
     public Response updateManager(@Context HttpServletRequest request, @RequestBody PallierType pallier) {
@@ -57,10 +56,10 @@ public class Webservice {
     }
 
     @PUT
-    @Path("allunlock")
-    public Response updateAllUnlock(@Context HttpServletRequest request, @RequestBody PallierType pallier) {
+    @Path("upgrade")
+    public Response updateUpgrade(@Context HttpServletRequest request, @RequestBody PallierType pallier) {
         String username = request.getHeader("X-user");
-        return Response.ok(services.updateAllUnlock(username, pallier)).build();
+        return Response.ok(services.updateUpgrade(username, pallier)).build();
 
     }
 }

@@ -209,16 +209,18 @@
               <div class="nomBouton">
                 <span class="palliercible">
                   {{ world.products.product[upgrade.idcible - 1].name }}
+                  {{ upgrade.typeratio }} x{{ upgrade.ratio }}
                 </span>
                 <span
                   ><button
                     mat-raised-button
                     class="hirebutton"
                     color="accent"
-                    (click)="hireManager(upgrade)"
+                    (click)="getUpgrade(upgrade)"
+                    (click)="buyUpgrade(upgrade)"
                     [disabled]="!(world.money >= upgrade.seuil)"
                   >
-                    Hire !
+                    Get !
                   </button></span
                 >
               </div>

@@ -57,6 +57,7 @@ export class AppComponent {
   }
   onProductionDone(p: Product) {
     let countManagers = 0;
+    let countUpgrades = 0;
     this.world.money += p.revenu;
     this.world.score += p.revenu;
     this.world.managers.pallier.forEach((manager) => {
@@ -65,10 +66,18 @@ export class AppComponent {
       }
     });
     this.badgeManagers = countManagers;
+
+    this.world.upgrades.pallier.forEach((upgrade) => {
+      if (this.world.money >= upgrade.seuil && !upgrade.unlocked) {
+        countUpgrades += 1;
+      }
+    });
+    this.badgeCashUpgrades = countUpgrades;
   }
 
   onBuy(c: number) {
     let countManagers = 0;
+    let countUpgrades = 0;
     this.world.money -= c;
     this.world.score -= c;
     this.world.managers.pallier.forEach((manager) => {
@@ -76,11 +85,19 @@ export class AppComponent {
         countManagers += 1;
       }
     });
+
     this.badgeManagers = countManagers;
+    this.world.upgrades.pallier.forEach((upgrade) => {
+      if (this.world.money >= upgrade.seuil && !upgrade.unlocked) {
+        countUpgrades += 1;
+      }
+    });
+    this.badgeCashUpgrades = countUpgrades;
+
     this.world.products.product.forEach((produit) => {
       produit.palliers.pallier.forEach((unlock) => {
         if (produit.quantite >= unlock.seuil && !unlock.unlocked) {
-          this.getUnlock(unlock);
+          this.getUpgrade(unlock);
         }
       });
     });
@@ -91,7 +108,7 @@ export class AppComponent {
         qte += product.quantite;
       });
       if (qte >= allunlock.seuil && !allunlock.unlocked) {
-        this.getUnlock(allunlock);
+        this.getUpgrade(allunlock);
       }
     });
   }
@@ -149,34 +166,42 @@ export class AppComponent {
     });
   }
 
-  getUnlock(unlock) {
+  getUpgrade(upgrade) {
     let pName = "Tous les produits";
-    unlock.unlocked = true;
-    if (unlock.idcible != 0) {
+    upgrade.unlocked = true;
+    if (upgrade.idcible != 0) {
       this.produits.forEach((produit) => {
-        if (produit.product.id == unlock.idcible) {
-          produit.calcUpgrade(unlock);
+        if (produit.product.id == upgrade.idcible) {
+          produit.calcUpgrade(upgrade);
           pName = produit.product.name;
         }
       });
     } else {
       this.produits.forEach((produit) => {
-        produit.calcUpgrade(unlock);
+        produit.calcUpgrade(upgrade);
       });
     }
 
     this.popMessage(
       "Unlocked " +
-        unlock.name +
+        upgrade.name +
         ", " +
         pName +
         " " +
-        unlock.typeratio +
+        upgrade.typeratio +
         " x" +
-        unlock.ratio +
+        upgrade.ratio +
         "!!"
     );
 
-    this.service.putAllUnlock(unlock);
+    this.service.putUpgrade(upgrade);
+  }
+  buyUpgrade(upgrade) {
+    this.world.money -= upgrade.seuil;
+    this.world.score -= upgrade.seuil;
+    this.badgeCashUpgrades -= 1;
+    if (this.badgeCashUpgrades < 0) {
+      this.badgeCashUpgrades = 0;
+    }
   }
 }
