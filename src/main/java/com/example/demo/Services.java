@@ -74,10 +74,45 @@ public class Services {
         return world;
     }
 
+    public Boolean deleteWorld(String username) {
+        World oldWorld = getWorld(username);
+        // recalculer nb anges a rajouter
+        System.out.println("totalAngels: " + oldWorld.getTotalangels());
+        System.out.println("score: " + oldWorld.getScore());
+
+        double nbAngels = Math
+                .floor(150 * Math.sqrt(oldWorld.getScore() / Math.pow(10, 15)) - oldWorld.getTotalangels());
+        System.out.println("nbAngels: " + nbAngels);
+        // récupérer totalangels et activeangles et score courant
+        double totalAngels = oldWorld.getTotalangels();
+        double activeAngels = oldWorld.getActiveangels();
+        double score = oldWorld.getScore();
+        // reset xml
+        World newWorld = null;
+        try {
+            JAXBContext jaxbContext = JAXBContext.newInstance(World.class);
+            Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+            InputStream input = getClass().getClassLoader().getResourceAsStream("world.xml");
+            newWorld = (World) jaxbUnmarshaller.unmarshal(input);
+        } catch (JAXBException ex) {
+            System.out.println("Erreur lecture du fichier:" + ex.getMessage());
+            ex.printStackTrace();
+        }
+        // dans le new xml, mettre totalangels+nbangels et activeangels+nbangels et
+        // score
+        newWorld.setTotalangels(totalAngels + nbAngels);
+        newWorld.setActiveangels(activeAngels + nbAngels);
+        newWorld.setScore(score);
+        this.saveWorldToXml(username, newWorld);
+        return true;
+
+    }
+
     public Boolean updateProduct(String username, ProductType newproduct) {
         World world = getWorld(username);
         double money = world.getMoney();
         double newMoney;
+        double newScore;
 
         ProductType product = findProductById(world, newproduct.getId());
         if (product == null) {
@@ -88,18 +123,22 @@ public class Services {
         if (qtchange > 0) {
             if (qtchange == 1) {
                 newMoney = money - (product.getCout());
+                newScore = world.getScore() - product.getCout();
                 product.setCout(product.getCout() * product.getCroissance());
 
             } else {
                 newMoney = money - (product.getCout()
                         * ((1 - Math.pow(product.getCroissance(), qtchange)) / (1 - product.getCroissance())));
+                newScore = world.getScore() - (product.getCout()
+                        * ((1 - Math.pow(product.getCroissance(), qtchange)) / (1 - product.getCroissance())));
+
                 product.setCout((product.getCout()
                         * ((1 - Math.pow(product.getCroissance(), qtchange)) / (1 - product.getCroissance()))));
 
             }
             newMoney = newMoney < 0 ? 0 : newMoney;
             world.setMoney(newMoney);
-            world.setScore(newMoney);
+            world.setScore(newScore);
             product.setQuantite(qteprod + qtchange);
             for (PallierType unlock : product.getPalliers().getPallier()) {
                 if ((product.getQuantite() >= unlock.getSeuil()) & (!unlock.isUnlocked())) {
@@ -146,7 +185,7 @@ public class Services {
         // soustraire de l'argent du joueur le cout du manager
         double money = world.getMoney();
         world.setMoney(money - manager.getSeuil());
-        world.setScore(money - manager.getSeuil());
+        world.setScore(world.getScore() - manager.getSeuil());
         // sauvegarder les changements au monde
         saveWorldToXml(username, world);
         return true;
@@ -259,7 +298,7 @@ public class Services {
                 upgrade = pallier;
                 double money = world.getMoney();
                 world.setMoney(money - upgrade.getSeuil());
-                world.setScore(money - upgrade.getSeuil());
+                world.setScore(world.getScore() - upgrade.getSeuil());
 
             }
 

@@ -63,4 +63,12 @@ export class RestserviceService {
       })
       .toPromise();
   }
+  deleteWorld(): Promise<any> {
+    return this.http
+      .delete(this.server + "adventureisis/generic/world", {
+        headers: this.setHeaders(this.user),
+      })
+      .toPromise()
+      .catch(this.handleError);
+  }
 }

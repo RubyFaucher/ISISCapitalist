@@ -356,6 +356,33 @@ and open the template in the editor.
         </pallier>
     </upgrades>
     <angelupgrades>
+        <pallier>
+            <name>Bogrod</name>
+            <logo>icones/angel.png</logo>
+            <seuil>60</seuil>
+            <idcible>0</idcible>
+            <ratio>2</ratio>
+            <typeratio>gain</typeratio>
+            <unlocked></unlocked>
+        </pallier>
+        <pallier>
+            <name>Gnarlak</name>
+            <logo>icones/angel1.png</logo>
+            <seuil>120</seuil>
+            <idcible>1</idcible>
+            <ratio>2</ratio>
+            <typeratio>ange</typeratio>
+            <unlocked></unlocked>
+        </pallier>
+        <pallier>
+            <name>Gornuk</name>
+            <logo>icones/angel2.png</logo>
+            <seuil>160</seuil>
+            <idcible>-1</idcible>
+            <ratio>2</ratio>
+            <typeratio>ange</typeratio>
+            <unlocked></unlocked>
+        </pallier>
     </angelupgrades>
     <managers>
         <pallier>
@@ -378,7 +405,7 @@ and open the template in the editor.
         </pallier>
         <pallier>
             <name>Choixpeau</name>
-            <logo>icones/sorting-hat.jpeg</logo>
+            <logo>icones/choipeaux.png</logo>
             <seuil>7000</seuil>
             <idcible>3</idcible>
             <ratio></ratio>

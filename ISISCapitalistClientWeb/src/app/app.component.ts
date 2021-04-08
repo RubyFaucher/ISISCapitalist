@@ -20,8 +20,12 @@ export class AppComponent {
   showManagers: boolean;
   showUnlocks: boolean;
   showCashUpgrades: boolean;
+  showInvestors: boolean;
+  showAngels: boolean;
   badgeManagers: number;
   badgeCashUpgrades: number;
+  badgeInvestors: number;
+  badgeAngels: number;
   username: string;
 
   constructor(
@@ -32,8 +36,12 @@ export class AppComponent {
     this.qtmulti = "x1";
     this.showManagers = false;
     this.showUnlocks = false;
+    this.showCashUpgrades = false;
+    this.showInvestors = false;
     this.badgeManagers = 0;
     this.badgeCashUpgrades = 0;
+    this.badgeInvestors = 0;
+    this.badgeAngels = 0;
     this.username = localStorage.getItem("username");
     if (
       this.username == "null" ||
@@ -54,7 +62,9 @@ export class AppComponent {
     }
     localStorage.setItem("username", this.username);
     this.service.user = this.username;
+    window.location.reload();
   }
+
   onProductionDone(p: Product) {
     let countManagers = 0;
     let countUpgrades = 0;
@@ -145,6 +155,12 @@ export class AppComponent {
   changeShowCashUpgrades() {
     this.showCashUpgrades = !this.showCashUpgrades;
   }
+  changeShowInvestors() {
+    this.showInvestors = !this.showInvestors;
+  }
+  changeShowAngels() {
+    this.showAngels = !this.showAngels;
+  }
   hireManager(manager) {
     manager.unlocked = true;
     this.world.money -= manager.seuil;
@@ -203,5 +219,29 @@ export class AppComponent {
     if (this.badgeCashUpgrades < 0) {
       this.badgeCashUpgrades = 0;
     }
+  }
+  calcNbrAngels() {
+    let nbrAnges = 0;
+    nbrAnges = Math.floor(
+      150 * Math.sqrt(this.world.score / 10 ** 15) - this.world.totalangels
+    );
+    return nbrAnges;
+  }
+
+  hireAngel(angel) {
+    angel.unlocked = true;
+    this.world.money -= angel.seuil;
+    this.world.score -= angel.seuil;
+    this.world.products.product[angel.idcible - 1].managerUnlocked = true;
+    this.popMessage("Bravo, vous venez d'embaucher " + angel.name + "!!");
+    this.badgeManagers -= 1;
+    if (this.badgeManagers < 0) {
+      this.badgeManagers = 0;
+    }
+  }
+  restart() {
+    this.service.deleteWorld().then(() => {
+      window.location.reload();
+    });
   }
 }

@@ -9,11 +9,24 @@
       >£
     </div>
     <span class="example-spacer"></span>
+    <button
+      (click)="changeShowInvestors()"
+      [matBadge]="badgeInvestors"
+      [matBadgeHidden]="badgeInvestors == 0"
+      mat-icon-button
+      color="accent"
+    >
+      <mat-icon>people</mat-icon>
+      investors
+    </button>
+
+    <span class="example-spacer"></span>
+
     <div>
       <input
         type="text"
         [(ngModel)]="username"
-        (change)="onUsernameChanged()"
+        (keyup.enter)="onUsernameChanged()"
         size="9"
       />
     </div>
@@ -49,6 +62,16 @@
     color="accent"
   >
     Cash Upgrades
+  </button>
+  <span class="example-spacer"></span>
+  <button
+    (click)="changeShowAngels()"
+    [matBadge]="badgeAngels"
+    [matBadgeHidden]="badgeAngels == 0"
+    mat-raised-button
+    color="accent"
+  >
+    Angel Upgrades
   </button>
   <span class="example-spacer"></span>
 
@@ -234,6 +257,81 @@
           class="closebutton"
           color="primary"
           (click)="showCashUpgrades = !showCashUpgrades"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="showAngels" class="modal">
+    <div>
+      <h1 class="title">Angels make you feel better !</h1>
+    </div>
+    <div>
+      <div *ngFor="let angel of world.angelupgrades.pallier">
+        <div *ngIf="!angel.unlocked" class="pallierlayout">
+          <div class="cadre">
+            <div class="logo">
+              <img class="img-pallier" [attr.src]="server + angel.logo" />
+            </div>
+            <div class="pallier">
+              <div class="nomPrix">
+                <span>{{ angel.name }}</span>
+                <span>{{ angel.seuil }}£</span>
+              </div>
+              <div class="nomBouton">
+                <span class="palliercible">
+                  {{ angel.typeratio }} x{{ angel.ratio }}
+                </span>
+                <span>
+                  <mat-icon
+                    [ngClass]="angel.unlocked ? 'unlocked' : 'not-unlocked'"
+                    >check_circle</mat-icon
+                  ></span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="button-center">
+        <button
+          mat-raised-button
+          class="closebutton"
+          color="primary"
+          (click)="showAngels = !showAngels"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="showInvestors" class="modal">
+    <div>
+      <h1 class="title">Angel Investors</h1>
+    </div>
+    <div>
+      score total: {{ this.world.score }}<br />
+      total angels: {{ this.world.totalangels }}
+      <br />
+      2% Bonus per angel <br />
+      <button
+        mat-raised-button
+        (click)="restart()"
+        [disabled]="this.calcNbrAngels() == 0"
+      >
+        Claim {{ this.calcNbrAngels() }} Angels with Restart
+      </button>
+      <br />
+      active angels: {{ this.world.activeangels }}
+      <div class="button-center">
+        <button
+          mat-raised-button
+          class="closebutton"
+          color="primary"
+          (click)="showInvestors = !showInvestors"
         >
           Close
         </button>

@@ -6,6 +6,7 @@
 package com.example.demo;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
@@ -61,5 +62,12 @@ public class Webservice {
         String username = request.getHeader("X-user");
         return Response.ok(services.updateUpgrade(username, pallier)).build();
 
+    }
+
+    @DELETE
+    @Path("world")
+    public Response deleteWorld(@Context HttpServletRequest request) {
+        String username = request.getHeader("X-user");
+        return Response.ok(services.deleteWorld(username)).build();
     }
 }

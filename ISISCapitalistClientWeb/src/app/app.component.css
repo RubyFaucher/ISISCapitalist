@@ -124,3 +124,7 @@ button:disabled {
 .unlocked {
   color: green;
 }
+.img-investor {
+  height: 30px;
+  width: 30px;
+}
