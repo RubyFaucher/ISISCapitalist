@@ -37,6 +37,18 @@
   top: 20%; /* a 10% du haut */
   left: 20%; /* a 20% de la gauche */
 }
+.modal-investors {
+  position: fixed; /* reste en place */
+  z-index: 2; /* au dessus du reste */
+  width: 60%; /* largeur */
+  height: 70%; /* hauteur */
+  overflow: auto; /* barre de scroll si besoin */
+  background-color: #740001; /* opaque */
+  border: 3px solid #d3a625;
+  top: 20%; /* a 10% du haut */
+  left: 20%; /* a 20% de la gauche */
+  color: #ffffff;
+}
 
 .modal-content {
   background-color: #fefefe;
@@ -89,6 +101,17 @@ button:disabled {
   margin: 20px;
   background-color: white;
 }
+.cadre-investors {
+  display: flex;
+  flex-direction: row;
+  width: 70%;
+  height: 120px;
+  border: 1px solid #000;
+  flex-shrink: 0;
+  margin: 20px;
+  background-color: #740001;
+  color: #ffffff;
+}
 .logo {
   height: 100%;
   width: 20%;
@@ -127,4 +150,22 @@ button:disabled {
 .img-investor {
   height: 30px;
   width: 30px;
+}
+.text-investors {
+  margin-left: 10%;
+}
+.gras {
+  color: #d3a625;
+}
+.text-bouton {
+  display: flex;
+  margin-top: 10%;
+}
+.bouton-reset {
+  margin-top: 9%;
+  margin-left: 12%;
+}
+.button-investors {
+  text-align: center;
+  margin-top: 13%;
 }

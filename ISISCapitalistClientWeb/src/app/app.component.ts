@@ -68,8 +68,24 @@ export class AppComponent {
   onProductionDone(p: Product) {
     let countManagers = 0;
     let countUpgrades = 0;
-    this.world.money += p.revenu;
-    this.world.score += p.revenu;
+    if (p.quantite > 0) {
+      this.world.money +=
+        p.quantite *
+        p.revenu *
+        (1 + (this.world.activeangels * this.world.angelbonus) / 100);
+      this.world.score +=
+        p.quantite *
+        p.revenu *
+        (1 + (this.world.activeangels * this.world.angelbonus) / 100);
+    } else {
+      this.world.money +=
+        p.revenu *
+        (1 + (this.world.activeangels * this.world.angelbonus) / 100);
+      this.world.score +=
+        p.revenu *
+        (1 + (this.world.activeangels * this.world.angelbonus) / 100);
+    }
+
     this.world.managers.pallier.forEach((manager) => {
       if (this.world.money >= manager.seuil && !manager.unlocked) {
         countManagers += 1;
@@ -185,13 +201,15 @@ export class AppComponent {
   getUpgrade(upgrade) {
     let pName = "Tous les produits";
     upgrade.unlocked = true;
-    if (upgrade.idcible != 0) {
+    if (upgrade.idcible > 0) {
       this.produits.forEach((produit) => {
         if (produit.product.id == upgrade.idcible) {
           produit.calcUpgrade(upgrade);
           pName = produit.product.name;
         }
       });
+    } else if ((upgrade.idcible = -1)) {
+      this.world.angelbonus += this.world.angelbonus * (upgrade.ratio / 100);
     } else {
       this.produits.forEach((produit) => {
         produit.calcUpgrade(upgrade);
@@ -218,6 +236,45 @@ export class AppComponent {
     this.badgeCashUpgrades -= 1;
     if (this.badgeCashUpgrades < 0) {
       this.badgeCashUpgrades = 0;
+    }
+  }
+  getAngel(angel) {
+    let pName = "Tous les produits";
+    angel.unlocked = true;
+    if (angel.idcible > 0) {
+      this.produits.forEach((produit) => {
+        if (produit.product.id == angel.idcible) {
+          produit.calcUpgrade(angel);
+          pName = produit.product.name;
+        }
+      });
+    } else if ((angel.idcible = -1)) {
+      this.world.angelbonus += this.world.angelbonus * (angel.ratio / 100);
+    } else {
+      this.produits.forEach((produit) => {
+        produit.calcUpgrade(angel);
+      });
+    }
+
+    this.popMessage(
+      "Unlocked " +
+        angel.name +
+        ", " +
+        pName +
+        " " +
+        angel.typeratio +
+        " x" +
+        angel.ratio +
+        "!!"
+    );
+
+    this.service.putAngelUpgrade(angel);
+  }
+  buyAngel(angel) {
+    this.world.totalangels -= angel.seuil;
+    this.badgeAngels -= 1;
+    if (this.badgeAngels < 0) {
+      this.badgeAngels = 0;
     }
   }
   calcNbrAngels() {

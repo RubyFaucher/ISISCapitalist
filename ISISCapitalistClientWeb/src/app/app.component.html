@@ -27,7 +27,7 @@
         type="text"
         [(ngModel)]="username"
         (keyup.enter)="onUsernameChanged()"
-        size="9"
+        size="11"
       />
     </div>
   </mat-toolbar>
@@ -266,7 +266,7 @@
 
   <div *ngIf="showAngels" class="modal">
     <div>
-      <h1 class="title">Angels make you feel better !</h1>
+      <h1 class="title">Spend your angels wisely</h1>
     </div>
     <div>
       <div *ngFor="let angel of world.angelupgrades.pallier">
@@ -278,17 +278,23 @@
             <div class="pallier">
               <div class="nomPrix">
                 <span>{{ angel.name }}</span>
-                <span>{{ angel.seuil }}£</span>
+                <span>{{ angel.seuil }} angels</span>
               </div>
               <div class="nomBouton">
                 <span class="palliercible">
                   {{ angel.typeratio }} x{{ angel.ratio }}
                 </span>
-                <span>
-                  <mat-icon
-                    [ngClass]="angel.unlocked ? 'unlocked' : 'not-unlocked'"
-                    >check_circle</mat-icon
-                  ></span
+                <span
+                  ><button
+                    mat-raised-button
+                    class="hirebutton"
+                    color="accent"
+                    (click)="getAngel(angel)"
+                    (click)="buyAngel(angel)"
+                    [disabled]="!(world.totalangels >= angel.seuil)"
+                  >
+                    Buy !
+                  </button></span
                 >
               </div>
             </div>
@@ -308,34 +314,49 @@
     </div>
   </div>
 
-  <div *ngIf="showInvestors" class="modal">
+  <div *ngIf="showInvestors" class="modal-investors">
     <div>
       <h1 class="title">Angel Investors</h1>
     </div>
-    <div>
-      score total: {{ this.world.score }}<br />
-      total angels: {{ this.world.totalangels }}
-      <br />
-      2% Bonus per angel <br />
-      <button
-        mat-raised-button
-        (click)="restart()"
-        [disabled]="this.calcNbrAngels() == 0"
-      >
-        Claim {{ this.calcNbrAngels() }} Angels with Restart
-      </button>
-      <br />
-      active angels: {{ this.world.activeangels }}
-      <div class="button-center">
+    <div class="text-bouton">
+      <span class="text-investors">
+        <ul>
+          <li>
+            <b class="gras">score total:</b> {{ this.world.score | bigvalue }}
+          </li>
+          <br />
+          <li>
+            <b class="gras">total angels:</b> {{ this.world.totalangels }}
+          </li>
+          <br />
+          <li>
+            {{ this.world.angelbonus }}%<b class="gras"> Bonus per angel</b>
+          </li>
+          <br />
+          <li>
+            <b class="gras">active angels:</b> {{ this.world.activeangels }}
+          </li>
+          <br /></ul
+      ></span>
+      <span class="bouton-reset">
         <button
           mat-raised-button
-          class="closebutton"
-          color="primary"
-          (click)="showInvestors = !showInvestors"
+          (click)="restart()"
+          [disabled]="this.calcNbrAngels() == 0"
         >
-          Close
-        </button>
-      </div>
+          Claim {{ this.calcNbrAngels() }} Angels with Restart
+        </button></span
+      >
+    </div>
+    <div class="button-investors">
+      <button
+        mat-raised-button
+        class="closebutton"
+        color="accent"
+        (click)="showInvestors = !showInvestors"
+      >
+        Close
+      </button>
     </div>
   </div>
 </div>

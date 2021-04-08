@@ -55,6 +55,13 @@ export class RestserviceService {
       })
       .toPromise();
   }
+  putAngelUpgrade(angel: Pallier): Promise<any> {
+    return this.http
+      .put(this.server + "adventureisis/generic/angel", angel, {
+        headers: this.setHeaders(this.user),
+      })
+      .toPromise();
+  }
   putProduct(product: Product): Promise<any> {
     console.log("requesting putProduct from user" + this.user);
     return this.http

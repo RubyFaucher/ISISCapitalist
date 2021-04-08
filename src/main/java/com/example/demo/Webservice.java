@@ -64,6 +64,14 @@ public class Webservice {
 
     }
 
+    @PUT
+    @Path("angel")
+    public Response updateAngelUpgrade(@Context HttpServletRequest request, @RequestBody PallierType pallier) {
+        String username = request.getHeader("X-user");
+        return Response.ok(services.updateAngelUpgrade(username, pallier)).build();
+
+    }
+
     @DELETE
     @Path("world")
     public Response deleteWorld(@Context HttpServletRequest request) {
