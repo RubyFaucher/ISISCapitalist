@@ -63,7 +63,6 @@ export class RestserviceService {
       .toPromise();
   }
   putProduct(product: Product): Promise<any> {
-    console.log("requesting putProduct from user" + this.user);
     return this.http
       .put(this.server + "adventureisis/generic/product", product, {
         headers: this.setHeaders(this.user),

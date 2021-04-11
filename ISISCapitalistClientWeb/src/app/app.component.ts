@@ -53,6 +53,32 @@ export class AppComponent {
     this.service.user = this.username;
     service.getWorld().then((world) => {
       this.world = world;
+      let countAngels = 0;
+      let countManagers = 0;
+      let countUpgrades = 0;
+
+      this.world.managers.pallier.forEach((manager) => {
+        console.log("la");
+        if (this.world.money >= manager.seuil && !manager.unlocked) {
+          countManagers += 1;
+        }
+      });
+      this.badgeManagers = countManagers;
+      console.log(this.badgeManagers);
+
+      this.world.upgrades.pallier.forEach((upgrade) => {
+        if (this.world.money >= upgrade.seuil && !upgrade.unlocked) {
+          countUpgrades += 1;
+        }
+      });
+      this.badgeCashUpgrades = countUpgrades;
+
+      this.world.angelupgrades.pallier.forEach((angel) => {
+        if (this.world.activeangels >= angel.seuil && !angel.unlocked) {
+          countAngels += 1;
+        }
+      });
+      this.badgeAngels = countAngels;
     });
   }
 
