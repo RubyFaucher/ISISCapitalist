@@ -230,8 +230,11 @@
                 <span>{{ upgrade.seuil }}£</span>
               </div>
               <div class="nomBouton">
-                <span class="palliercible">
+                <span class="palliercible" *ngIf="upgrade.idcible > 0">
                   {{ world.products.product[upgrade.idcible - 1].name }}
+                  {{ upgrade.typeratio }} x{{ upgrade.ratio }}
+                </span>
+                <span class="palliercible" *ngIf="upgrade.idcible == -1">
                   {{ upgrade.typeratio }} x{{ upgrade.ratio }}
                 </span>
                 <span

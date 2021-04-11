@@ -208,8 +208,8 @@ export class AppComponent {
           pName = produit.product.name;
         }
       });
-    } else if ((upgrade.idcible = -1)) {
-      this.world.angelbonus += this.world.angelbonus * (upgrade.ratio / 100);
+    } else if (upgrade.idcible == -1) {
+      this.world.angelbonus += upgrade.ratio;
     } else {
       this.produits.forEach((produit) => {
         produit.calcUpgrade(upgrade);
@@ -249,7 +249,7 @@ export class AppComponent {
         }
       });
     } else if ((angel.idcible = -1)) {
-      this.world.angelbonus += this.world.angelbonus * (angel.ratio / 100);
+      this.world.angelbonus += angel.ratio;
     } else {
       this.produits.forEach((produit) => {
         produit.calcUpgrade(angel);

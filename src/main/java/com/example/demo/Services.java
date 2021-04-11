@@ -77,15 +77,12 @@ public class Services {
     public Boolean deleteWorld(String username) {
         World oldWorld = getWorld(username);
         // recalculer nb anges a rajouter
-        System.out.println("totalAngels: " + oldWorld.getTotalangels());
-        System.out.println("score: " + oldWorld.getScore());
-
         double nbAngels = Math
                 .floor(150 * Math.sqrt(oldWorld.getScore() / Math.pow(10, 15)) - oldWorld.getTotalangels());
-        System.out.println("nbAngels: " + nbAngels);
         // récupérer totalangels et activeangles et score courant
         double totalAngels = oldWorld.getTotalangels();
         double activeAngels = oldWorld.getActiveangels();
+        int bonusAngels = oldWorld.getAngelbonus();
         double score = oldWorld.getScore();
         // reset xml
         World newWorld = null;
@@ -102,6 +99,8 @@ public class Services {
         // score
         newWorld.setTotalangels(totalAngels + nbAngels);
         newWorld.setActiveangels(activeAngels + nbAngels);
+        newWorld.setAngelbonus(bonusAngels);
+
         newWorld.setScore(score);
         this.saveWorldToXml(username, newWorld);
         return true;
@@ -163,7 +162,6 @@ public class Services {
         }
 
         saveWorldToXml(username, world);
-        System.out.println("argent monde: " + world.getMoney());
         return true;
     }
 
@@ -220,7 +218,7 @@ public class Services {
 
         } else if (upgrade.getIdcible() == -1) {
             upgrade.setUnlocked(true);
-            world.setAngelbonus((int) (world.getAngelbonus() + world.getAngelbonus() * (upgrade.getRatio() / 100)));
+            world.setAngelbonus((int) (world.getAngelbonus() + upgrade.getRatio()));
         } else {
             // débloquer l'upgrade
             upgrade.setUnlocked(true);
@@ -272,8 +270,9 @@ public class Services {
 
         } else if (upgrade.getIdcible() == -1) {
             upgrade.setUnlocked(true);
-            world.setAngelbonus((int) (world.getAngelbonus() + world.getAngelbonus() * (upgrade.getRatio() / 100)));
-        } else {
+            world.setAngelbonus((int)(world.getAngelbonus() + upgrade.getRatio()));
+
+        } else { 
             // débloquer l'upgrade
             upgrade.setUnlocked(true);
             for (ProductType produit : world.getProducts().getProduct()) {
