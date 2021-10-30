@@ -6,7 +6,7 @@ and open the template in the editor.
 -->
 
 
-<world xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:noNamespaceSchemaLocation='file:/Users/ruby/ISISCapitalist/src/main/java/worldSchema.xsd'>
+<world xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:noNamespaceSchemaLocation='file:/Users/ruby/ISISCapitalist/ISISCapitalistBackEnd/src/main/java/worldSchema.xsd'>
     <name>Monde</name>
     <logo>icones/hogwarts.png</logo>
     <money>0</money>
